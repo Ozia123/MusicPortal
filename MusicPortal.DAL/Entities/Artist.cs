@@ -8,7 +8,6 @@ namespace MusicPortal.DAL.Entities {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string ArtistId { get; set; }
 
-        [Required]
         public string Name { get; set; }
 
         public string PictureURL { get; set; }

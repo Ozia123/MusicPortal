@@ -10,6 +10,6 @@ namespace MusicPortal.DAL.EF {
 
         public DbSet<Album> Albums { get; set; }
 
-        public DbSet<Song> Songs { get; set; }
+        public DbSet<Track> Tracks { get; set; }
     }
 }

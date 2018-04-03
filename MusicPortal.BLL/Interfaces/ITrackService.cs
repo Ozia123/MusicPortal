@@ -1,0 +1,12 @@
+﻿using MusicPortal.BLL.DTO;
+using MusicPortal.DAL.Entities;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace MusicPortal.BLL.Interfaces {
+    public interface ITrackService : IService<TrackDto, string> {
+        IQueryable<Track> Query();
+
+        List<TrackDto> GetTopTracks(int page, int itemsPerPage);
+    }
+}

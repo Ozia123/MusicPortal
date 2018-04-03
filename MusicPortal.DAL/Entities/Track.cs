@@ -8,6 +8,8 @@ namespace MusicPortal.DAL.Entities {
         public string TrackId { get; set; }
 
         public string Name { get; set; }
+
+        public int Rank { get; set; }
         
         public string PictureURL { get; set; }
 

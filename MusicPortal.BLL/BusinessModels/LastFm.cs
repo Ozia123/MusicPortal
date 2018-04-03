@@ -1,9 +1,6 @@
 ﻿using IF.Lastfm.Core.Api;
 using MusicPortal.BLL.DTO;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MusicPortal.BLL.BusinessModels {
@@ -17,14 +14,14 @@ namespace MusicPortal.BLL.BusinessModels {
             client = new LastfmClient(apiKey, apiSecret);
         }
 
-        public async Task<List<ArtistDto>> GetTopArtists(int page = 1, int ItemsPerPage = 20) {
-            var artists = await client.Chart.GetTopArtistsAsync();
-            return artists.Select(artist => artist.Name).ToList();
+        public async Task<List<ArtistDto>> GetTopArtists(int page = 1, int itemsPerPage = 20) {
+            var artists = await client.Chart.GetTopArtistsAsync(page, itemsPerPage);
+            return LastFmDtoMapper.MapArtists(artists);
         }
 
-        public async Task<List<SongDto>> GetTopSongs(int page = 1, int itemsPerPage = 20) {
-            var songs = await client.Chart.GetTopTracksAsync(page, itemsPerPage);
-            return songs.Select(song => song.Name).ToList();
+        public async Task<List<TrackDto>> GetTopTracks(int page = 1, int itemsPerPage = 20) {
+            var tracks = await client.Chart.GetTopTracksAsync(page, itemsPerPage);
+            return LastFmDtoMapper.MapTracks(tracks);
         }
     }
 }

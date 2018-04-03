@@ -10,6 +10,11 @@
 
   <ItemGroup>
     <Folder Include="Infrastructure\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MusicPortal.DAL\MusicPortal.DAL.csproj" />
   </ItemGroup>
 
 </Project>

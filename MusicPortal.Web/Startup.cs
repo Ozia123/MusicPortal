@@ -19,9 +19,6 @@ namespace MusicPortal.Web {
         public void ConfigureServices(IServiceCollection services) {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ApplicationContext"), b => b.MigrationsAssembly("MusicPortal.DAL")));
-
             services.AddMvc();
         }
         

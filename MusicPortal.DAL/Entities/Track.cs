@@ -2,18 +2,21 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MusicPortal.DAL.Entities {
-    public class Song {
+    public class Track {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string SondId { get; set; }
+        public string TrackId { get; set; }
 
-        [Required]
         public string Name { get; set; }
 
-        [Required]
-        public string SongURL { get; set; }
+        public int Rank { get; set; }
+        
+        public string PictureURL { get; set; }
+
+        public string TrackURL { get; set; }
 
         public string AlbumId { get; set; }
+
         public Album Album { get; set; }
     }
 }

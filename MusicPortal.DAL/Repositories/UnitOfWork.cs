@@ -8,14 +8,14 @@ namespace MusicPortal.DAL.Repositories {
 
         private readonly IArtistRepository _artistRepository;
         private readonly IAlbumRepository _albumRepository;
-        private readonly ITrackRepository _songRepository;
+        private readonly ITrackRepository _trackRepository;
 
         public UnitOfWork(ApplicationContext context) {
             _context = context;
 
             _artistRepository = new ArtistRepository(_context);
             _albumRepository = new AlbumRepository(_context);
-            _songRepository = new TrackRepository(_context);
+            _trackRepository = new TrackRepository(_context);
         }
 
         public ApplicationContext Context => _context;
@@ -24,7 +24,7 @@ namespace MusicPortal.DAL.Repositories {
 
         public IAlbumRepository AlbumRepository => _albumRepository;
 
-        public ITrackRepository SongRepository => _songRepository;
+        public ITrackRepository TrackRepository => _trackRepository;
 
         public async Task SaveAsync() {
             await _context.SaveChangesAsync();

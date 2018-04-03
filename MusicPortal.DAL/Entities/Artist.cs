@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MusicPortal.DAL.Entities {
-    public class Artist {
+    public class Track {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string ArtistId { get; set; }

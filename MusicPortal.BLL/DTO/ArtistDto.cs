@@ -1,5 +1,5 @@
 ﻿namespace MusicPortal.BLL.DTO {
-    public class ArtistDto {
+    public class TrackDto {
         public string ArtistId { get; set; }
 
         public string Name { get; set; }

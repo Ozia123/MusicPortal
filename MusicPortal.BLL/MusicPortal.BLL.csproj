@@ -5,12 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.2.2" />
     <PackageReference Include="Inflatable.Lastfm" Version="1.0.1.307" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Infrastructure\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>

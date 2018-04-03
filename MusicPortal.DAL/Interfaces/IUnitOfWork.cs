@@ -7,7 +7,7 @@ namespace MusicPortal.DAL.Interfaces {
 
         IArtistRepository ArtistRepository { get; }
         IAlbumRepository AlbumRepository { get; }
-        ITrackRepository SongRepository { get; }
+        ITrackRepository TrackRepository { get; }
 
         Task SaveAsync();
     }

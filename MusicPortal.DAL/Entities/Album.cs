@@ -17,7 +17,7 @@ namespace MusicPortal.DAL.Entities {
 
         public string ArtistId { get; set; }
 
-        public Track Artist { get; set; }
+        public Artist Artist { get; set; }
 
         public List<Track> Tracks { get; set; }
     }

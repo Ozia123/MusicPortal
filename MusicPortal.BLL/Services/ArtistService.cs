@@ -20,34 +20,34 @@ namespace MusicPortal.BLL.Services {
             _lastFm = lastFm;
         }
 
-        public IQueryable<Track> Query() {
+        public IQueryable<Artist> Query() {
             return _database.ArtistRepository.Query();
         }
 
-        public async Task<TrackDto> GetById(string id) {
-            Track artist = await _database.ArtistRepository.GetById(id);
-            return _mapper.Map<Track, TrackDto>(artist);
+        public async Task<ArtistDto> GetById(string id) {
+            Artist artist = await _database.ArtistRepository.GetById(id);
+            return _mapper.Map<Artist, ArtistDto>(artist);
         }
 
-        public async Task<TrackDto> Create(TrackDto item) {
-            Track artist = _mapper.Map<TrackDto, Track>(item);
+        public async Task<ArtistDto> Create(ArtistDto item) {
+            Artist artist = _mapper.Map<ArtistDto, Artist>(item);
             artist = await _database.ArtistRepository.Create(artist);
-            return _mapper.Map<Track, TrackDto>(artist);
+            return _mapper.Map<Artist, ArtistDto>(artist);
         }
 
-        public async Task<TrackDto> Update(TrackDto item) {
-            Track artist = _mapper.Map<TrackDto, Track>(item);
+        public async Task<ArtistDto> Update(ArtistDto item) {
+            Artist artist = _mapper.Map<ArtistDto, Artist>(item);
             artist = await _database.ArtistRepository.Update(artist);
-            return _mapper.Map<Track, TrackDto>(artist);
+            return _mapper.Map<Artist, ArtistDto>(artist);
         }
 
-        public async Task<TrackDto> Delete(string id) {
-            Track artist = await _database.ArtistRepository.Delete(id);
-            return _mapper.Map<Track, TrackDto>(artist);
+        public async Task<ArtistDto> Delete(string id) {
+            Artist artist = await _database.ArtistRepository.Delete(id);
+            return _mapper.Map<Artist, ArtistDto>(artist);
         }
 
-        public async Task<List<TrackDto>> GetTopArtists(int page, int itemsPerPage) {
-            List<TrackDto> artists = await _lastFm.GetTopArtists(page, itemsPerPage);
+        public async Task<List<ArtistDto>> GetTopArtists(int page, int itemsPerPage) {
+            List<ArtistDto> artists = await _lastFm.GetTopArtists(page, itemsPerPage);
             return artists;
         }
     }

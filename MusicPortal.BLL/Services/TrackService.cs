@@ -37,12 +37,12 @@ namespace MusicPortal.BLL.Services {
 
         public async Task<TrackDto> Update(TrackDto item) {
             Track track = _mapper.Map<TrackDto, Track>(item);
-            track = await _database.ArtistRepository.Update(track);
+            track = await _database.TrackRepository.Update(track);
             return _mapper.Map<Track, TrackDto>(track);
         }
 
         public async Task<TrackDto> Delete(string id) {
-            Track track = await _database.ArtistRepository.Delete(id);
+            Track track = await _database.TrackRepository.Delete(id);
             return _mapper.Map<Track, TrackDto>(track);
         }
 

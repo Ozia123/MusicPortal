@@ -5,12 +5,12 @@ using MusicPortal.DAL.Entities;
 using MusicPortal.DAL.Interfaces;
 
 namespace MusicPortal.DAL.Repositories {
-    class ArtistRepository : Repository<Track, string>, IArtistRepository {
+    class ArtistRepository : Repository<Artist, string>, IArtistRepository {
         public ArtistRepository(ApplicationContext context) : base(context) {
         }
 
-        public IEnumerable<Track> AddRange(List<Track> items) {
-            List<Track> artists = new List<Track>();
+        public IEnumerable<Artist> AddRange(List<Artist> items) {
+            List<Artist> artists = new List<Artist>();
 
             foreach (var item in items) {
                 artists.Add(_context.Artists.Add(item).Entity);
@@ -19,11 +19,11 @@ namespace MusicPortal.DAL.Repositories {
             return artists;
         }
 
-        public List<Track> GetAll() {
+        public List<Artist> GetAll() {
             return _context.Artists.ToList();
         }
 
-        public List<Track> GetRange(int startIndex, int numberOfItems) {
+        public List<Artist> GetRange(int startIndex, int numberOfItems) {
             return _context.Artists.Skip(startIndex).Take(numberOfItems).ToList();
         }
     }

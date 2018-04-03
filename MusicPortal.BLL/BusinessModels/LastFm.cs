@@ -14,7 +14,7 @@ namespace MusicPortal.BLL.BusinessModels {
             client = new LastfmClient(apiKey, apiSecret);
         }
 
-        public async Task<List<TrackDto>> GetTopArtists(int page = 1, int itemsPerPage = 20) {
+        public async Task<List<ArtistDto>> GetTopArtists(int page = 1, int itemsPerPage = 20) {
             var artists = await client.Chart.GetTopArtistsAsync(page, itemsPerPage);
             return LastFmDtoMapper.MapArtists(artists);
         }

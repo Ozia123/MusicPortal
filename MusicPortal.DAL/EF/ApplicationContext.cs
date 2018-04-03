@@ -6,7 +6,7 @@ namespace MusicPortal.DAL.EF {
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) {
         }
 
-        public DbSet<Track> Artists { get; set; }
+        public DbSet<Artist> Artists { get; set; }
 
         public DbSet<Album> Albums { get; set; }
 

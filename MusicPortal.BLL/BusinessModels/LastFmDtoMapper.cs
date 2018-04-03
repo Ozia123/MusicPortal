@@ -7,8 +7,8 @@ using System.Collections.Generic;
 namespace MusicPortal.BLL.BusinessModels {
     public static class LastFmDtoMapper {
 
-        public static TrackDto MapArtist(LastArtist artist) {
-            return new TrackDto {
+        public static ArtistDto MapArtist(LastArtist artist) {
+            return new ArtistDto {
                 Name = artist.Name,
                 Biography = artist.Bio.Summary,
                 PictureURL = artist.MainImage.Mega.AbsoluteUri
@@ -34,10 +34,10 @@ namespace MusicPortal.BLL.BusinessModels {
             };
         }
 
-        public static List<TrackDto> MapArtists(PageResponse<LastArtist> artists) {
-            List<TrackDto> artistDtoList = new List<TrackDto>();
+        public static List<ArtistDto> MapArtists(PageResponse<LastArtist> artists) {
+            List<ArtistDto> artistDtoList = new List<ArtistDto>();
             foreach (var artist in artists) {
-                TrackDto artistDto = MapArtist(artist);
+                ArtistDto artistDto = MapArtist(artist);
                 artistDtoList.Add(artistDto);
             }
             return artistDtoList;

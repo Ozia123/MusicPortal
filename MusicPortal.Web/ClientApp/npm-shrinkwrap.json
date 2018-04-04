@@ -45,9 +45,17 @@
       }
     },
     "@angular/animations": {
-      "version": "5.1.0",
-      "resolved": "https://registry.npmjs.org/@angular/animations/-/animations-5.1.0.tgz",
-      "integrity": "sha512-s0tV6y2D16CQAcXjv8CN8AahHb+LoWm9KAUkxvSJ18ZZQweuAY4T8jlRB95ODRFFKfjwyRD9HqXKUC5yHmG9ww==",
+      "version": "5.2.9",
+      "resolved": "https://registry.npmjs.org/@angular/animations/-/animations-5.2.9.tgz",
+      "integrity": "sha512-H/3fMs4PhYjKoA81II6D0PHifDrqlKet2u/EXzUBq3ehXby+N/0GBzqsBYwPeU5pTye7WPFfW+5sgoJpN8Ye6Q==",
+      "requires": {
+        "tslib": "1.8.1"
+      }
+    },
+    "@angular/cdk": {
+      "version": "5.2.4",
+      "resolved": "https://registry.npmjs.org/@angular/cdk/-/cdk-5.2.4.tgz",
+      "integrity": "sha1-wKQpqHENj+2xV/VG4hy0nUM19/c=",
       "requires": {
         "tslib": "1.8.1"
       }
@@ -150,6 +158,14 @@
       "version": "5.1.0",
       "resolved": "https://registry.npmjs.org/@angular/core/-/core-5.1.0.tgz",
       "integrity": "sha512-duObjve+INoz4wWuqcaJzl1isUyI37RtRblTFXgZBp2n2n0nXJq1CubcfgxQhMMR2d64xWLKg9+d34PvnzaMmg==",
+      "requires": {
+        "tslib": "1.8.1"
+      }
+    },
+    "@angular/flex-layout": {
+      "version": "5.0.0-beta.14",
+      "resolved": "https://registry.npmjs.org/@angular/flex-layout/-/flex-layout-5.0.0-beta.14.tgz",
+      "integrity": "sha512-/fsOqXFUKdCmzzZx0bZ0HCYwcV+BSbVuIgOhaCrZKHj2rqiWKKPgj1ErU3HMT68bBBGag0u0skTdLGtrBorRIA==",
       "requires": {
         "tslib": "1.8.1"
       }
@@ -4168,6 +4184,11 @@
       "resolved": "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.1.11.tgz",
       "integrity": "sha1-Dovf5NHduIVNZOBOp8AOKgJuVlg=",
       "dev": true
+    },
+    "hammerjs": {
+      "version": "2.0.8",
+      "resolved": "https://registry.npmjs.org/hammerjs/-/hammerjs-2.0.8.tgz",
+      "integrity": "sha1-BO93hiz/K7edMPdpIJWTAiK/YPE="
     },
     "handle-thing": {
       "version": "1.2.5",

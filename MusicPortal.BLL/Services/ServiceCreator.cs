@@ -22,7 +22,7 @@ namespace MusicPortal.BLL.Services {
         }
 
         public IArtistService CreateArtistService() {
-            return new ArtistService(CreateUnitOfWork(), _mapper, new LastFm());
+            return new ArtistService(CreateUnitOfWork(), _mapper);
         }
 
         public IAlbumService CreateAlbumService() {

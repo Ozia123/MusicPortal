@@ -2,10 +2,12 @@ using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MusicPortal.BLL.Interfaces;
 using MusicPortal.BLL.Services;
+using MusicPortal.DAL.EF;
 using MusicPortal.DAL.Interfaces;
 using MusicPortal.DAL.Repositories;
 using MusicPortal.Web.Util;
@@ -23,6 +25,8 @@ namespace MusicPortal.Web {
                 cfg => { cfg.AddProfile(new AutoMapperProfile()); }
             );
             AutoMapperConfiguration.Configure();
+
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ApplicationContext"), b => b.MigrationsAssembly("MusicPortal.DAL")));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IArtistService, ArtistService>();
@@ -57,6 +61,7 @@ namespace MusicPortal.Web {
 
             app.UseSpa(spa => {
                 spa.Options.SourcePath = "ClientApp";
+                //spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
 
                 if (env.IsDevelopment()) {
                     spa.UseAngularCliServer(npmScript: "start");

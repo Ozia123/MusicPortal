@@ -10,7 +10,8 @@ namespace MusicPortal.BLL.BusinessModels {
         public static ArtistDto MapArtist(LastArtist artist) {
             return new ArtistDto {
                 Name = artist.Name,
-                Biography = artist.Bio.Summary,
+                Biography = "no bio",
+                //Biography = artist.Bio.Summary,
                 PictureURL = artist.MainImage.Mega.AbsoluteUri
             };
         }

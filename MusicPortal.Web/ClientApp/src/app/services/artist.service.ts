@@ -22,4 +22,14 @@ export class ArtistService {
     let artists: ArtistModel[] = (await this.http.get('http://localhost:63678/' + HttpQueryStrings.getTopArtists + page + '/' + itemsPerPage, this.options).toPromise()).json();
     return artists;
   }
+
+  public async getFullInfoArtist(name: string): Promise<ArtistModel> {
+    let artist: ArtistModel = (await this.http.get('http://localhost:63678/' + HttpQueryStrings.getFullInfoArtist + name, this.options).toPromise()).json();
+    return artist;
+  }
+
+  public async getSimilarArtists(name: string): Promise<ArtistModel[]> {
+    let artists: ArtistModel[] = (await this.http.get('http://localhost:63678/' + HttpQueryStrings.getSimilarArtists + name, this.options).toPromise()).json();
+    return artists;
+  }
 }

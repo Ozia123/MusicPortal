@@ -19,7 +19,7 @@ export class ArtistService {
   };
 
   public async getTopArtists(page: number, itemsPerPage: number): Promise<ArtistModel[]> {
-    let artists: ArtistModel[] = (await this.http.get('http://localhost:63678/' + HttpQueryStrings.getTopArtists + page, this.options).toPromise()).json();
+    let artists: ArtistModel[] = (await this.http.get('http://localhost:63678/' + HttpQueryStrings.getTopArtists + page + '/' + itemsPerPage, this.options).toPromise()).json();
     return artists;
   }
 }

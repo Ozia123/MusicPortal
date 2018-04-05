@@ -1,15 +1,48 @@
-<mat-progress-spinner mode="indeterminate" class="centered-spinner" *ngIf="!artists">
-</mat-progress-spinner>
+<mat-tab-group class="mat-group">
+  <mat-tab label="Top Artists">
+    <mat-progress-spinner mode="indeterminate" class="centered-spinner" *ngIf="!artists"></mat-progress-spinner>
 
-<div *ngIf="artists">
-  <h2>Top Artists</h2>
-  <mat-card class="card" *ngFor="let artist of artists">
-    <img class="photo" mat-card-image src="{{ artist.pictureURL }}">
-    <mat-card-content>
-      <h3>{{ artist.name }}</h3>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>View full artist's profile</button>
-    </mat-card-actions>
-  </mat-card>
-</div>
+    <div *ngIf="artists">
+      <mat-card class="card" *ngFor="let artist of artists">
+        <img class="photo" mat-card-image src="{{ artist.pictureURL }}">
+        <mat-card-content>
+          <h3>{{ artist.name }}</h3>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>View full artist's profile</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <mat-paginator #artistsPaginator
+      [length]="artistsLength"
+      [pageSize]="artistsPageSize"
+      [pageSizeOptions]="artistsPageSizeOptions"
+      (page)="changeArtistsPage($event, artistsPaginator)">
+    </mat-paginator>
+  </mat-tab>
+
+  <mat-tab label="Top Tracks">
+    <mat-progress-spinner mode="indeterminate" class="centered-spinner" *ngIf="!artists"></mat-progress-spinner>
+  
+    <div *ngIf="artists">
+
+      <mat-card class="card" *ngFor="let artist of artists">
+        <img class="photo" mat-card-image src="{{ artist.pictureURL }}">
+        <mat-card-content>
+          <h3>{{ artist.name }}</h3>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>View full artist's profile</button>
+        </mat-card-actions>
+      </mat-card>
+
+      <mat-paginator [length]="artistsLength"
+        [pageSize]="artistsPageSize"
+        [pageSizeOptions]="artistsPageSizeOptions"
+        (page)="artistsPageEvent = $event">
+      </mat-paginator>
+
+    </div>
+  </mat-tab>
+</mat-tab-group>

@@ -20,6 +20,8 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { ArtistService } from './services/artist.service';
 
@@ -40,11 +42,13 @@ import { ArtistService } from './services/artist.service';
     MatIconModule,
     MatToolbarModule,
     MatMenuModule,
+    MatTabsModule,
     MatButtonModule,
     MatGridListModule,
     FlexLayoutModule,
     MatCardModule,
     MatProgressSpinnerModule,
+    MatPaginatorModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },

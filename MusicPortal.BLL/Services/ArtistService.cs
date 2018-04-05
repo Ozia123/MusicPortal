@@ -50,5 +50,10 @@ namespace MusicPortal.BLL.Services {
             List<ArtistDto> artists = await _lastFm.GetTopArtists(page, itemsPerPage);
             return artists.Skip(artists.Count - itemsPerPage).ToList();
         }
+
+        public async Task<List<ArtistDto>> GetSimilarArtists(string name) {
+            List<ArtistDto> artists = await _lastFm.GetSimilarArtists(name);
+            return artists;
+        }
     }
 }

@@ -11,7 +11,6 @@ namespace MusicPortal.BLL.BusinessModels {
             return new ArtistDto {
                 Name = artist.Name,
                 Biography = "no bio",
-                //Biography = artist.Bio.Summary,
                 PictureURL = artist.MainImage.Mega.AbsoluteUri
             };
         }

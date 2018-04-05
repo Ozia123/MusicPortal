@@ -1,4 +1,6 @@
 ﻿using IF.Lastfm.Core.Api;
+using IF.Lastfm.Core.Api.Helpers;
+using IF.Lastfm.Core.Objects;
 using MusicPortal.BLL.DTO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,6 +14,33 @@ namespace MusicPortal.BLL.BusinessModels {
 
         public LastFm() {
             client = new LastfmClient(apiKey, apiSecret);
+        }
+
+        private async Task<string> GetArtistBio(string mbid) {
+            LastArtist artist = (await client.Artist.GetInfoByMbidAsync(mbid)).Content ?? new LastArtist();
+            artist.Bio = artist.Bio ?? new LastWiki();
+            return artist.Bio.Content ?? "no bio";
+        }
+
+        private async Task<LastArtist> GetFullInfoArtist(LastArtist artist) {
+            if (artist.Bio == null) {
+                artist.Bio = new LastWiki();
+            }
+            artist.Bio.Content = await GetArtistBio(artist.Mbid);
+            return artist;
+        }
+
+        public async Task<List<LastArtist>> GetFullInfoArtists(PageResponse<LastArtist> artists) {
+            List<LastArtist> fullInfoArtists = new List<LastArtist>();
+            for (int i = 0; i < artists.Content.Count; i++) {
+                fullInfoArtists.Add(await GetFullInfoArtist(artists.Content[i]));
+            }
+            return fullInfoArtists;
+        }
+
+        public async Task<List<ArtistDto>> GetSimilarArtists(string name) {
+            var artists = await client.Artist.GetSimilarAsync(name);
+            return LastFmDtoMapper.MapArtists(artists);
         }
 
         public async Task<List<ArtistDto>> GetTopArtists(int page = 1, int itemsPerPage = 20) {

@@ -32,5 +32,16 @@ namespace MusicPortal.Web.Controllers {
 
             return Ok(_mapper.Map<List<ArtistDto>, List<ArtistModel>>(artists));
         }
+
+        [HttpGet]
+        [Route("api/similar-artists/{name}")]
+        public async Task<IActionResult> GetSimilarArtists([Required]string name) {
+            List<ArtistDto> artists = await _artistService.GetSimilarArtists(name);
+            if (artists == null) {
+                return BadRequest("last.fm not responding");
+            }
+
+            return Ok(_mapper.Map<List<ArtistDto>, List<ArtistModel>>(artists));
+        }
     }
 }

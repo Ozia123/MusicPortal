@@ -1,0 +1,11 @@
+<mat-progress-spinner mode="indeterminate" class="centered-spinner" *ngIf="!artists"></mat-progress-spinner>
+
+<div class="artists-div" *ngIf="artists">
+  <app-artist class="card" *ngFor="let artist of artists" [artist]="artist"></app-artist>
+  <mat-paginator [length]="length"
+    [pageIndex]="pageIndex"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="changePage($event)">
+  </mat-paginator>
+</div>

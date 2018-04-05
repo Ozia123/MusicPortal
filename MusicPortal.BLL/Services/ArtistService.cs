@@ -48,7 +48,7 @@ namespace MusicPortal.BLL.Services {
 
         public async Task<List<ArtistDto>> GetTopArtists(int page, int itemsPerPage) {
             List<ArtistDto> artists = await _lastFm.GetTopArtists(page, itemsPerPage);
-            return artists;
+            return artists.Skip(artists.Count - itemsPerPage).ToList();
         }
     }
 }

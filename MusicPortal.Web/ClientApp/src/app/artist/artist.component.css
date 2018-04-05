@@ -1,0 +1,14 @@
+.photo {
+    width: 300px;
+    height: auto;
+
+    transition: opacity 0.5s ease-in-out;
+    -moz-transition: opacity 0.5s ease-in-out;
+    -ms-transition: opacity 0.5s ease-in-out;
+    -o-transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.photo:hover {
+    opacity: 0.7;
+}

@@ -14,10 +14,10 @@ namespace MusicPortal.BLL.Services {
         private readonly IMapper _mapper;
         private readonly LastFm _lastFm;
 
-        public TrackService(IUnitOfWork unitOfWork, IMapper mapper, LastFm lastFm) {
+        public TrackService(IUnitOfWork unitOfWork, IMapper mapper) {
             _database = unitOfWork;
             _mapper = mapper;
-            _lastFm = lastFm;
+            _lastFm = new LastFm();
         }
 
         public IQueryable<Track> Query() {

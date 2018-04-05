@@ -30,7 +30,7 @@ namespace MusicPortal.BLL.Services {
         }
 
         public ITrackService CreateTrackService() {
-            return new TrackService(CreateUnitOfWork(), _mapper, new LastFm());
+            return new TrackService(CreateUnitOfWork(), _mapper);
         }
     }
 }

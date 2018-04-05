@@ -30,8 +30,8 @@ namespace MusicPortal.BLL.BusinessModels {
                 Name = track.Name,
                 Rank = track.Rank ?? 0,
                 PlayCount = track.PlayCount ?? 0,
-                PictureURL = track.Images.Mega.AbsoluteUri,
-                TrackURL = track.Url.AbsolutePath,
+                PictureURL = track.Images.Large.AbsoluteUri,
+                TrackURL = track.Url.AbsoluteUri,
             };
         }
 

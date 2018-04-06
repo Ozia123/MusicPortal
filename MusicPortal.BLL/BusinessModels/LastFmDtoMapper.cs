@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 namespace MusicPortal.BLL.BusinessModels {
     public static class LastFmDtoMapper {
+        private static string defaultImageURL = @"http://www.back2gaming.com/wp-content/gallery/tt-esports-shockspin/white_label.gif";
 
         public static ArtistDto MapArtist(LastArtist artist) {
             return new ArtistDto {
@@ -18,9 +19,10 @@ namespace MusicPortal.BLL.BusinessModels {
         public static AlbumDto MapAlbum(LastAlbum album) {
             return new AlbumDto {
                 Name = album.Name,
-                PictureURL = album.Images.Mega.AbsoluteUri,
+                PictureURL = album.Images.Large.AbsoluteUri ?? defaultImageURL,
                 PlayCount = album.PlayCount ?? 0,
                 ReleaseDate = album.ReleaseDateUtc ?? DateTime.Now,
+                ArtistName = album.ArtistName,
             };
         }
 
@@ -48,6 +50,9 @@ namespace MusicPortal.BLL.BusinessModels {
         public static List<AlbumDto> MapAlbums(PageResponse<LastAlbum> albums) {
             List<AlbumDto> albumDtoList = new List<AlbumDto>();
             foreach (var album in albums) {
+                if (album.Name.Equals("(null)")) {
+                    break;
+                }
                 AlbumDto albumDto = MapAlbum(album);
                 albumDtoList.Add(albumDto);
             }

@@ -11,8 +11,7 @@ export class ArtistService {
     private http: Http,
     private router: Router,
     @Inject('BASE_URL') private baseUrl: string) 
-  { 
-  }
+  { }
 
   private options: any = {
     withCredentials: true

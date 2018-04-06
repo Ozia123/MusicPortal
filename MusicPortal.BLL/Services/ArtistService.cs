@@ -54,21 +54,17 @@ namespace MusicPortal.BLL.Services {
         public async Task<List<ArtistDto>> GetTopArtists(int page, int itemsPerPage) {
             List<ArtistDto> artists = await _lastFm.GetTopArtists(page, itemsPerPage);
             artists = artists.Skip(artists.Count - itemsPerPage).ToList();
-            await GetFullInfoAndAddToDatabaseTask(artists);
+            await GetFullInfoAndAddToDatabase(artists);
             return artists;
         }
 
         public async Task<List<ArtistDto>> GetSimilarArtists(string name) {
             List<ArtistDto> artists = await _lastFm.GetSimilarArtists(name);
-            await GetFullInfoAndAddToDatabaseTask(artists);
+            await GetFullInfoAndAddToDatabase(artists);
             return artists;
         }
 
-        private void GetFullInfoAndAddToDatabase(List<ArtistDto> artists) {
-            Task.Factory.StartNew(() => GetFullInfoAndAddToDatabaseTask(artists));
-        }
-
-        private async Task GetFullInfoAndAddToDatabaseTask(List<ArtistDto> artists) {
+        private async Task GetFullInfoAndAddToDatabase(List<ArtistDto> artists) {
             foreach (var artist in artists) {
                 Artist artistFromDb = _database.ArtistRepository.GetByName(artist.Name);
                 if (artistFromDb == null) {

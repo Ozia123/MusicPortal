@@ -48,5 +48,10 @@ namespace MusicPortal.BLL.BusinessModels {
             var tracks = await client.Chart.GetTopTracksAsync(page, itemsPerPage);
             return LastFmDtoMapper.MapTracks(tracks);
         }
+
+        public async Task<List<AlbumDto>> GetTopArtistsAlbums(string name, int page = 1, int itemsPerPage = 20) {
+            var albums = await client.Artist.GetTopAlbumsAsync(name, false, page, itemsPerPage);
+            return LastFmDtoMapper.MapAlbums(albums);
+        }
     }
 }

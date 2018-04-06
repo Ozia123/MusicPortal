@@ -12,6 +12,8 @@ namespace MusicPortal.BLL.DTO {
 
         public string PictureURL { get; set; }
 
+        public string ArtistName { get; set; }
+
         public string ArtistId { get; set; }
     }
 }

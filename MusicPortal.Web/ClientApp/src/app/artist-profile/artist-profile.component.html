@@ -6,8 +6,11 @@
 
     <mat-tab-group class="tab-content">
         <mat-tab label="Top albums">
-            <h1>Some tab content</h1>
-            <p>...</p>
+            <div *ngIf="albums">
+                <app-album  class="card" *ngFor="let album of albums" [album]="album"></app-album>
+            </div>
+            <mat-progress-spinner mode="indeterminate" class="centered-spinner" *ngIf="!artist"></mat-progress-spinner>
+            <button (click)="onMoreAlbums()" class="more-button" mat-raised-button color="primary">More</button>
         </mat-tab>
         <mat-tab label="Top tracks">
             <h1>Some more tab content</h1>

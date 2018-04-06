@@ -35,13 +35,13 @@ namespace MusicPortal.Web.Controllers {
 
         [HttpGet]
         [Route("api/artist/{name}")]
-        public async Task<IActionResult> GetFullInfoArtist([Required]string name) {
-            List<ArtistDto> artists = await _artistService.GetSimilarArtists(name);
-            if (artists == null) {
-                return BadRequest("last.fm not responding");
+        public IActionResult GetFullInfoArtist([Required]string name) {
+            ArtistDto artist = _artistService.GetByName(name);
+            if (artist == null) {
+                return BadRequest("artist not found");
             }
 
-            return Ok(_mapper.Map<List<ArtistDto>, List<ArtistModel>>(artists));
+            return Ok(_mapper.Map<ArtistDto, ArtistModel>(artist));
         }
 
         [HttpGet]

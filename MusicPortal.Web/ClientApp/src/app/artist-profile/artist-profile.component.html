@@ -1,0 +1,27 @@
+<mat-progress-spinner mode="indeterminate" class="centered-spinner" *ngIf="!artist"></mat-progress-spinner>
+
+<div class="artist-block" *ngIf="artist">
+    <img class="artist-image" src="{{artist.pictureURL}}">
+    <h1 class="artist-name">{{ artist.name }}</h1>
+
+    <mat-tab-group class="tab-content">
+        <mat-tab label="Top albums">
+            <h1>Some tab content</h1>
+            <p>...</p>
+        </mat-tab>
+        <mat-tab label="Top tracks">
+            <h1>Some more tab content</h1>
+            <p>...</p>
+        </mat-tab>
+        <mat-tab label="Similar artists">
+            <h1>Some more tab content</h1>
+            <p>...</p>
+        </mat-tab>
+        <mat-tab label="Biography">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <h3 class="bio-text">{{ artist.biography }}</h3>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

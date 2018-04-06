@@ -1,0 +1,29 @@
+.centered-spinner {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+}
+
+.artist-block {
+    margin-top: 15px;
+}
+
+.artist-image {
+    display: inline-block;
+    border-radius: 50%;
+    margin-left: 20px;
+}
+
+.artist-name {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.tab-content {
+    margin-top: 25px;
+}
+
+.bio-text {
+    margin-top: 25px;
+}

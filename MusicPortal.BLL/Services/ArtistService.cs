@@ -29,6 +29,11 @@ namespace MusicPortal.BLL.Services {
             return _mapper.Map<Artist, ArtistDto>(artist);
         }
 
+        public ArtistDto GetByName(string name) {
+            Artist artist = _database.ArtistRepository.GetByName(name);
+            return _mapper.Map<Artist, ArtistDto>(artist);
+        }
+
         public async Task<ArtistDto> Create(ArtistDto item) {
             Artist artist = _mapper.Map<ArtistDto, Artist>(item);
             artist = await _database.ArtistRepository.Create(artist);

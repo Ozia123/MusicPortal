@@ -26,12 +26,15 @@ export class ArtistsComponent implements OnInit {
     this.paginator = mp;
   }
 
+  constructor(private router: Router, private route: ActivatedRoute, private artistService: ArtistService) {
+  }
+
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.pageIndex = this.getPageIndex();
       this.pageSize = this.getPageSize();
       this.getArtists();
-   });
+    });
   }
 
   private getPageIndex(): number {
@@ -47,9 +50,6 @@ export class ArtistsComponent implements OnInit {
       return 20;
     }
     return Number(pageSizeStr) || 20;
-  }
-
-  constructor(private router: Router, private route: ActivatedRoute, private artistService: ArtistService) {
   }
 
   async getArtists() {

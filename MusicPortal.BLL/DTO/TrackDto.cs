@@ -12,6 +12,10 @@
 
         public string TrackURL { get; set; }
 
+        public string ArtistName { get; set; }
+
+        public string AlbumName { get; set; }
+
         public string AlbumId { get; set; }
     }
 }

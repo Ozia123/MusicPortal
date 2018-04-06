@@ -5,5 +5,7 @@ export class TrackModel {
     public playCount: number = 0;
     public pictureURL: string = '';
     public trackURL: string = '';
+    public artistName: string = '';
+    public albumName: string = '';
     public albumId: string = '';
 }

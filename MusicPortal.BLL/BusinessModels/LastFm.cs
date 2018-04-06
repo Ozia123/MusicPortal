@@ -16,26 +16,22 @@ namespace MusicPortal.BLL.BusinessModels {
             client = new LastfmClient(apiKey, apiSecret);
         }
 
-        private async Task<string> GetArtistBio(string mbid) {
-            LastArtist artist = (await client.Artist.GetInfoByMbidAsync(mbid)).Content ?? new LastArtist();
+        private async Task<string> GetArtistBio(string name) {
+            LastArtist artist = (await client.Artist.GetInfoAsync(name)).Content ?? new LastArtist();
             artist.Bio = artist.Bio ?? new LastWiki();
             return artist.Bio.Content ?? "no bio";
         }
 
-        private async Task<LastArtist> GetFullInfoArtist(LastArtist artist) {
-            if (artist.Bio == null) {
-                artist.Bio = new LastWiki();
-            }
-            artist.Bio.Content = await GetArtistBio(artist.Mbid);
+        public async Task<ArtistDto> GetFullInfoArtist(ArtistDto artist) {
+            artist.Biography = await GetArtistBio(artist.Name);
             return artist;
         }
 
-        public async Task<List<LastArtist>> GetFullInfoArtists(PageResponse<LastArtist> artists) {
-            List<LastArtist> fullInfoArtists = new List<LastArtist>();
-            for (int i = 0; i < artists.Content.Count; i++) {
-                fullInfoArtists.Add(await GetFullInfoArtist(artists.Content[i]));
+        public async Task<List<ArtistDto>> GetFullInfoArtists(List<ArtistDto> artists) {
+            for (int i = 0; i < artists.Count; i++) {
+                artists[i] = await GetFullInfoArtist(artists[i]);
             }
-            return fullInfoArtists;
+            return artists;
         }
 
         public async Task<List<ArtistDto>> GetSimilarArtists(string name) {

@@ -23,6 +23,10 @@ namespace MusicPortal.DAL.Repositories {
             return _context.Artists.ToList();
         }
 
+        public Artist GetByName(string name) {
+            return _context.Artists.FirstOrDefault(a => a.Name.Equals(name));
+        }
+
         public List<Artist> GetRange(int startIndex, int numberOfItems) {
             return _context.Artists.Skip(startIndex).Take(numberOfItems).ToList();
         }

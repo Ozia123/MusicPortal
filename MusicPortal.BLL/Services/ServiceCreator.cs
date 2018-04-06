@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore.Design;
 using MusicPortal.BLL.BusinessModels;
 using MusicPortal.BLL.Interfaces;
 using MusicPortal.DAL.EF;

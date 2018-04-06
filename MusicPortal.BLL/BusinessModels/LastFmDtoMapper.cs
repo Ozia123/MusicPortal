@@ -31,6 +31,8 @@ namespace MusicPortal.BLL.BusinessModels {
                 PlayCount = track.PlayCount ?? 0,
                 PictureURL = track.Images.Large.AbsoluteUri,
                 TrackURL = track.Url.AbsoluteUri,
+                ArtistName = track.ArtistName,
+                AlbumName = track.AlbumName
             };
         }
 

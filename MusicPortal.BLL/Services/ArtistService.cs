@@ -66,11 +66,15 @@ namespace MusicPortal.BLL.Services {
 
         private async Task GetFullInfoAndAddToDatabase(List<ArtistDto> artists) {
             foreach (var artist in artists) {
-                Artist artistFromDb = _database.ArtistRepository.GetByName(artist.Name);
-                if (artistFromDb == null) {
-                    ArtistDto artistToAdd = await _lastFm.GetFullInfoArtist(artist);
-                    await AddArtistToDatabase(artistToAdd);
-                }
+                await AddArtistToDatabaseIfNotExistsAndGetFullInfo(artist);
+            }
+        }
+
+        private async Task AddArtistToDatabaseIfNotExistsAndGetFullInfo(ArtistDto artist) {
+            Artist artistFromDb = _database.ArtistRepository.GetByName(artist.Name);
+            if (artistFromDb == null) {
+                ArtistDto artistToAdd = await _lastFm.GetFullInfoArtist(artist.Name);
+                await AddArtistToDatabase(artistToAdd);
             }
         }
 

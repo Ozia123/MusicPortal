@@ -49,15 +49,18 @@ namespace MusicPortal.BLL.Services {
         public async Task<List<AlbumDto>> GetTopArtistsAlbums(string name, int page, int itemsPerPage = 20) {
             List<AlbumDto> albums = await _lastFm.GetTopArtistsAlbums(name, page, itemsPerPage);
             albums = albums.Skip(albums.Count - itemsPerPage).ToList();
-            await AddAlbumsToDatabase(albums, name);
+            await AddAlbumsToDatabaseIfNeeded(albums, name);
             return albums;
         }
 
-        private async Task AddAlbumsToDatabase(List<AlbumDto> albums, string artistName) {
+        private async Task AddAlbumsToDatabaseIfNeeded(List<AlbumDto> albums, string artistName) {
             string artistId = GetArtistIdByName(artistName);
-            foreach (var album in albums) {
-                await AddAlbumToDatabaseIfNotExists(album, artistId);
-            }
+            var albumsToAdd = GetAlbumsWhichNotInDatabase(albums);
+            await GetFullInfoAndAddToDatabase(albumsToAdd, artistId);
+        }
+
+        private IEnumerable<AlbumDto> GetAlbumsWhichNotInDatabase(List<AlbumDto> albums) {
+            return albums.Where(aDto => !_database.AlbumRepository.Query().Select(a => a.Name).Contains(aDto.Name));
         }
 
         private string GetArtistIdByName(string name) {
@@ -68,16 +71,30 @@ namespace MusicPortal.BLL.Services {
             return artist.ArtistId;
         }
 
-        private async Task AddAlbumToDatabaseIfNotExists(AlbumDto album, string artistId) {
-            Album albumFromDb = _database.AlbumRepository.GetByName(album.Name);
-            if (albumFromDb == null) {
-                await AddAlbumToDatabase(album, artistId);
+        private async Task GetFullInfoAndAddToDatabase(IEnumerable<AlbumDto> albums, string artistId) {
+            foreach (var album in albums) {
+                Album albumFromDb = await AddAlbumToDatabase(album, artistId);
+                await GetAlbumsTracksAndAddThemToDatabase(albumFromDb, album.ArtistName);
             }
         }
 
-        private async Task AddAlbumToDatabase(AlbumDto album, string artistId) {
+        private async Task<Album> AddAlbumToDatabase(AlbumDto album, string artistId) {
             album.ArtistId = artistId;
-            await _database.AlbumRepository.Create(_mapper.Map<AlbumDto, Album>(album));
+            return await _database.AlbumRepository.Create(_mapper.Map<AlbumDto, Album>(album));
+        }
+
+        private async Task GetAlbumsTracksAndAddThemToDatabase(Album albumFromDb, string artistName) {
+            AlbumDto fullInfoAlbum = await _lastFm.GetFullInfoAlbum(artistName, albumFromDb.Name);
+            foreach (var trackName in fullInfoAlbum.TrackNames) {
+                TrackDto trackToAdd = await GetFullInfoTrack(artistName, trackName, albumFromDb.AlbumId);
+                await _database.TrackRepository.Create(_mapper.Map<TrackDto, Track>(trackToAdd));
+            }
+        }
+
+        private async Task<TrackDto> GetFullInfoTrack(string artistName, string trackName, string albumId) {
+            TrackDto fullInfoTrack = await _lastFm.GetFullInfoTrack(artistName, trackName);
+            fullInfoTrack.AlbumId = albumId;
+            return fullInfoTrack;
         }
     }
 }

@@ -9,5 +9,6 @@ namespace MusicPortal.BLL.Interfaces {
         IQueryable<Track> Query();
 
         Task<List<TrackDto>> GetTopTracks(int page, int itemsPerPage);
+        Task<List<TrackDto>> GetTopArtistsTracks(string name, int page, int itemsPerPage);
     }
 }

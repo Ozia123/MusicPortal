@@ -85,16 +85,26 @@ namespace MusicPortal.BLL.Services {
 
         private async Task GetAlbumsTracksAndAddThemToDatabase(Album albumFromDb, string artistName) {
             AlbumDto fullInfoAlbum = await _lastFm.GetFullInfoAlbum(artistName, albumFromDb.Name);
-            foreach (var trackName in fullInfoAlbum.TrackNames) {
-                TrackDto trackToAdd = await GetFullInfoTrack(artistName, trackName, albumFromDb.AlbumId);
+            IEnumerable<string> trackNamesToAdd = GetTrackNamesWhichNotInDatabase(fullInfoAlbum.TrackNames);
+            await AddTracksToDatabase(trackNamesToAdd, artistName, albumFromDb.AlbumId);
+        }
+
+        private async Task AddTracksToDatabase(IEnumerable<string> trackNames, string artistName, string albumId) {
+            foreach (var trackName in trackNames) {
+                TrackDto trackToAdd = GetTrackDto(artistName, trackName, albumId);
                 await _database.TrackRepository.Create(_mapper.Map<TrackDto, Track>(trackToAdd));
             }
         }
 
-        private async Task<TrackDto> GetFullInfoTrack(string artistName, string trackName, string albumId) {
-            TrackDto fullInfoTrack = await _lastFm.GetFullInfoTrack(artistName, trackName);
-            fullInfoTrack.AlbumId = albumId;
-            return fullInfoTrack;
+        private IEnumerable<string> GetTrackNamesWhichNotInDatabase(IEnumerable<string> trackNames) {
+            return trackNames.Where(tName => _database.TrackRepository.Query().Select(t => t.Name).Contains(tName));
+        }
+
+        private TrackDto GetTrackDto(string artistName, string trackName, string albumId) {
+            return new TrackDto {
+                Name = trackName,
+                AlbumId = albumId
+            };
         }
     }
 }

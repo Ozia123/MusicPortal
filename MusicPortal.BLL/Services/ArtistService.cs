@@ -54,32 +54,30 @@ namespace MusicPortal.BLL.Services {
         public async Task<List<ArtistDto>> GetTopArtists(int page, int itemsPerPage) {
             List<ArtistDto> artists = await _lastFm.GetTopArtists(page, itemsPerPage);
             artists = artists.Skip(artists.Count - itemsPerPage).ToList();
-            await GetFullInfoAndAddToDatabase(artists);
+            await GetFullInfoAndAddToDatabaseIfNeeded(artists);
             return artists;
         }
 
         public async Task<List<ArtistDto>> GetSimilarArtists(string name) {
             List<ArtistDto> artists = await _lastFm.GetSimilarArtists(name);
-            await GetFullInfoAndAddToDatabase(artists);
+            await GetFullInfoAndAddToDatabaseIfNeeded(artists);
             return artists;
         }
 
-        private async Task GetFullInfoAndAddToDatabase(List<ArtistDto> artists) {
-            foreach (var artist in artists) {
-                await AddArtistToDatabaseIfNotExistsAndGetFullInfo(artist);
+        private IEnumerable<ArtistDto> GetArtistsWhichNotInDatabase(IEnumerable<ArtistDto> artists) {
+            return artists.Where(aDto => !_database.ArtistRepository.Query().Select(a => a.Name).Contains(aDto.Name));
+        }
+
+        private async Task GetFullInfoAndAddToDatabaseIfNeeded(List<ArtistDto> artists) {
+            IEnumerable<ArtistDto> artistsToAdd = GetArtistsWhichNotInDatabase(artists);
+            foreach (var artist in artistsToAdd) {
+                ArtistDto artistToAdd = await GetFullInfoAboutArtist(artist);
+                await Create(artistToAdd);
             }
         }
 
-        private async Task AddArtistToDatabaseIfNotExistsAndGetFullInfo(ArtistDto artist) {
-            Artist artistFromDb = _database.ArtistRepository.GetByName(artist.Name);
-            if (artistFromDb == null) {
-                ArtistDto artistToAdd = await _lastFm.GetFullInfoArtist(artist.Name);
-                await AddArtistToDatabase(artistToAdd);
-            }
-        }
-
-        private async Task AddArtistToDatabase(ArtistDto artist) {
-            await _database.ArtistRepository.Create(_mapper.Map<ArtistDto, Artist>(artist));
+        private async Task<ArtistDto> GetFullInfoAboutArtist(ArtistDto artist) {
+            return await _lastFm.GetFullInfoArtist(artist.Name);
         }
     }
 }

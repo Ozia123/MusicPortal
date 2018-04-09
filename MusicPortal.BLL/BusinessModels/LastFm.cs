@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 namespace MusicPortal.BLL.BusinessModels {
     public class LastFm {
         private readonly LastfmClient client;
-        private readonly LastFmApi lastFmApi;
         private readonly LastFmDtoMapper lastFmDtoMapper;
 
         private readonly string apiKey = "cae6262226682d177ef0ac9ade016c26";
@@ -16,7 +15,6 @@ namespace MusicPortal.BLL.BusinessModels {
 
         public LastFm() {
             client = new LastfmClient(apiKey, apiSecret);
-            lastFmApi = new LastFmApi(apiKey);
             lastFmDtoMapper = new LastFmDtoMapper();
         }
 

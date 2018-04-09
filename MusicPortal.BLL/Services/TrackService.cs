@@ -60,15 +60,15 @@ namespace MusicPortal.BLL.Services {
             return tracks;
         }
 
+        private IEnumerable<TrackDto> GetTracksWhichNotInDatabase(IEnumerable<TrackDto> tracks) {
+            return tracks.Where(tDto => !_database.TrackRepository.Query().Select(t => t.Name).Contains(tDto.Name));
+        }
+
         private async Task AddTracksToDatabaseIfNeeded(List<TrackDto> tracks) {
             IEnumerable<TrackDto> tracksToAdd = GetTracksWhichNotInDatabase(tracks);
             foreach (var track in tracksToAdd) {
-                await _database.TrackRepository.Create(_mapper.Map<TrackDto, Track>(track));
+                await Create(track);
             }
-        }
-
-        private IEnumerable<TrackDto> GetTracksWhichNotInDatabase(IEnumerable<TrackDto> tracks) {
-            return tracks.Where(tDto => !_database.TrackRepository.Query().Select(t => t.Name).Contains(tDto.Name));
         }
     }
 }

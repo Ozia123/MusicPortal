@@ -27,6 +27,10 @@ namespace MusicPortal.DAL.Repositories {
             return _context.Artists.FirstOrDefault(a => a.Name.Equals(name));
         }
 
+        public string GetIdByName(string name) {
+            return _context.Artists.First(a => a.Name.Equals(name)).Name;
+        }
+
         public List<Artist> GetRange(int startIndex, int numberOfItems) {
             return _context.Artists.Skip(startIndex).Take(numberOfItems).ToList();
         }

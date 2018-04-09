@@ -97,7 +97,7 @@ namespace MusicPortal.BLL.Services {
         }
 
         private IEnumerable<string> GetTrackNamesWhichNotInDatabase(IEnumerable<string> trackNames) {
-            return trackNames.Where(tName => _database.TrackRepository.Query().Select(t => t.Name).Contains(tName));
+            return trackNames.Where(tName => !_database.TrackRepository.Query().Select(t => t.Name).Contains(tName));
         }
 
         private TrackDto GetTrackDto(string artistName, string trackName, string albumId) {

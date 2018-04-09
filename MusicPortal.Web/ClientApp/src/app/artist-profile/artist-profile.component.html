@@ -6,24 +6,31 @@
 
     <mat-tab-group class="tab-content">
         <mat-tab label="Top albums">
-            <div *ngIf="albums">
-                <app-album  class="card" *ngFor="let album of albums" [album]="album"></app-album>
+            <div class="albums-div col-md-12" *ngIf="albums">
+                <app-album  class="album-card col-md-2" *ngFor="let album of albums" [album]="album"></app-album>
             </div>
-            <mat-progress-spinner mode="indeterminate" class="centered-spinner" *ngIf="!artist"></mat-progress-spinner>
+            <mat-progress-spinner mode="indeterminate" class="centered-spinner" *ngIf="!albums"></mat-progress-spinner>
             <button (click)="onMoreAlbums()" class="more-button" mat-raised-button color="primary">More</button>
         </mat-tab>
         <mat-tab label="Top tracks">
-            <h1>Some more tab content</h1>
-            <p>...</p>
+            <div class="content-div col-md-12" *ngIf="tracks">
+                <mat-list item-height="100px">
+                    <app-track *ngFor="let track of tracks" [track]="track"></app-track>
+                </mat-list>
+            </div>
+            <mat-progress-spinner mode="indeterminate" class="centered-spinner" *ngIf="!tracks"></mat-progress-spinner>
+            <button (click)="onMoreTracks()" class="more-button" mat-raised-button color="primary">More</button>
         </mat-tab>
         <mat-tab label="Similar artists">
-            <h1>Some more tab content</h1>
-            <p>...</p>
+            <mat-progress-spinner mode="indeterminate" class="centered-spinner" *ngIf="!similarArtists"></mat-progress-spinner>
+            <div class="content-div col-md-12" *ngIf="similarArtists">
+                <app-artist class="artist-card col-md-2" *ngFor="let artist of similarArtists" [artist]="artist"></app-artist>
+            </div>
         </mat-tab>
         <mat-tab label="Biography">
             <div class="col-md-1"></div>
             <div class="col-md-10">
-                <h3 class="bio-text">{{ artist.biography }}</h3>
+                <p class="bio-text">{{ artist.biography }}</p>
             </div>
         </mat-tab>
     </mat-tab-group>

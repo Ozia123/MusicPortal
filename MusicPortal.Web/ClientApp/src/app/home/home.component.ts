@@ -7,6 +7,7 @@ import { ArtistService } from '../services/artist.service';
 import { TrackService } from '../services/track.service';
 
 import { ArtistComponent } from '../artist/artist.component';
+import { TrackComponent } from '../track/track.component';
 
 @Component({
   selector: 'app-home',
@@ -23,15 +24,7 @@ export class HomeComponent {
   }
 
   async Init() {
-    this.artists = await this.artistService.getTopArtists(1, 5);
+    this.artists = await this.artistService.getTopArtists(1, 6);
     this.tracks = await this.trackService.getTopTracks(1, 10);
-  }
-
-  onMoreArtists() {
-    this.router.navigate(['chart/artists/1']);
-  }
-
-  onNavigate(route: string) {
-    window.open(route, "_blank");
   }
 }

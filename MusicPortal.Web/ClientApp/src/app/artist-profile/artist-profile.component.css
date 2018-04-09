@@ -24,16 +24,27 @@
     margin-top: 25px;
 }
 
+.tab-content .album-card {
+    height: 400px;
+    margin-top: 10px;
+}
+
+.tab-content .artist-card {
+    height: 350px;
+    margin-top: 10px;
+}
+
 .bio-text {
+    margin-top: 25px;
+    padding: 0 1em;
+    size: 10em;
+    margin-bottom: 25px;
+}
+
+.content-div {
     margin-top: 25px;
 }
 
-.card {
-    max-width: 400px;
-    display: inline-block;
-    margin-right: 10px;
-    margin-top: 10px;
-}
 
 .more-button {
     display: block;

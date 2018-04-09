@@ -3,13 +3,12 @@
     <img class="photo" mat-card-image src="{{ album.pictureURL }}">
   </a>
   <mat-card-content class="card-content">
-    <h3>{{ album.name }}</h3>
+    <h4>{{ album.name }}</h4>
     <p>by 
       <a routerLink="/artist/{{album.artistName}}" routerLinkActive="active-link"><b>{{ album.artistName }}</b></a>
     </p>
   </mat-card-content>
   <mat-card-actions>
     <button routerLink="/album/{{album.name}}" routerLinkActive="active-link" mat-button>Full Album</button>
-    <button routerLink="/artist/{{album.artistName}}" routerLinkActive="active-link" mat-button>Artist's profile</button>
   </mat-card-actions>
 </mat-card>

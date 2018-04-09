@@ -29,8 +29,11 @@ import { TrackService } from './services/track.service';
 import { ArtistComponent } from './artist/artist.component';
 import { TrackComponent } from './track/track.component';
 import { ArtistsComponent } from './chart/artists/artists.component';
+import { TracksComponent } from './chart/tracks/tracks.component'
 import { ArtistProfileComponent } from './artist-profile/artist-profile.component';
 import { AlbumComponent } from './album/album.component';
+
+import { ScrollableDirective } from './scrollable.directive';
 
 @NgModule({
   declarations: [
@@ -40,8 +43,10 @@ import { AlbumComponent } from './album/album.component';
     ArtistComponent,
     TrackComponent,
     ArtistsComponent,
+    TracksComponent,
     ArtistProfileComponent,
-    AlbumComponent
+    AlbumComponent,
+    ScrollableDirective
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -63,7 +68,8 @@ import { AlbumComponent } from './album/album.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'chart/artists/:page', component: ArtistsComponent },
-      { path: 'artist/:name', component: ArtistProfileComponent}
+      { path: 'chart/tracks/:page', component: TracksComponent },
+      { path: 'artist/:name', component: ArtistProfileComponent }
     ])
   ],
   providers: [

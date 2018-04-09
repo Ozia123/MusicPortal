@@ -22,8 +22,8 @@ export class TrackService {
     return tracks;
   }
 
-  public async getTopArtistsTracks(artistName: string, page: number): Promise<TrackModel[]> {
-    let tracks: TrackModel[] = (await this.http.get('http://localhost:63678/' + HttpQueryStrings.getTopArtistsTracks + artistName + '/' + page, this.options).toPromise()).json();
+  public async getTopArtistsTracks(artistName: string, page: number, itemsPerPage: number): Promise<TrackModel[]> {
+    let tracks: TrackModel[] = (await this.http.get('http://localhost:63678/' + HttpQueryStrings.getTopArtistsTracks + artistName + '/' + page + '/' + itemsPerPage, this.options).toPromise()).json();
     return tracks;
   }
 }

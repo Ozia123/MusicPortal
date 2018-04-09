@@ -33,8 +33,6 @@ import { TracksComponent } from './chart/tracks/tracks.component'
 import { ArtistProfileComponent } from './artist-profile/artist-profile.component';
 import { AlbumComponent } from './album/album.component';
 
-import { ScrollableDirective } from './scrollable.directive';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,8 +43,7 @@ import { ScrollableDirective } from './scrollable.directive';
     ArtistsComponent,
     TracksComponent,
     ArtistProfileComponent,
-    AlbumComponent,
-    ScrollableDirective
+    AlbumComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

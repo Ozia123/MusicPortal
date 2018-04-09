@@ -1,6 +1,8 @@
-<mat-progress-spinner mode="indeterminate" class="centered-spinner" *ngIf="!artist"></mat-progress-spinner>
+<div class="albums-div col-md-12" *ngIf="!artist">
+    <mat-progress-spinner mode="indeterminate" class="centered-spinner"></mat-progress-spinner>
+</div>
 
-<div class="artist-block" *ngIf="artist">
+<div class="artist-block col-md-12" *ngIf="artist">
     <img class="artist-image" src="{{artist.pictureURL}}">
     <h1 class="artist-name">{{ artist.name }}</h1>
 
@@ -9,8 +11,10 @@
             <div class="albums-div col-md-12" *ngIf="albums">
                 <app-album  class="album-card col-md-2" *ngFor="let album of albums" [album]="album"></app-album>
             </div>
-            <mat-progress-spinner mode="indeterminate" class="centered-spinner" *ngIf="!albums"></mat-progress-spinner>
-            <button (click)="onMoreAlbums()" class="more-button" mat-raised-button color="primary">More</button>
+            <div class="col-md-12 spinner-div" *ngIf="showAlbumsPageSpinner">
+                <mat-progress-spinner mode="indeterminate" class="centered-spinner"></mat-progress-spinner>
+            </div>
+            <button *ngIf="isMoreAlbums" (click)="onMoreAlbums()" class="more-button" mat-raised-button color="primary">More</button>
         </mat-tab>
         <mat-tab label="Top tracks">
             <div class="content-div col-md-12" *ngIf="tracks">
@@ -18,11 +22,15 @@
                     <app-track *ngFor="let track of tracks" [track]="track"></app-track>
                 </mat-list>
             </div>
-            <mat-progress-spinner mode="indeterminate" class="centered-spinner" *ngIf="!tracks"></mat-progress-spinner>
-            <button (click)="onMoreTracks()" class="more-button" mat-raised-button color="primary">More</button>
+            <div class="col-md-10 spinner-div" *ngIf="showTracksPageSpinner">
+                <mat-progress-spinner mode="indeterminate" class="centered-spinner"></mat-progress-spinner>
+            </div>
+            <button *ngIf="isMoreTracks" (click)="onMoreTracks()" class="more-button" mat-raised-button color="primary">More</button>
         </mat-tab>
         <mat-tab label="Similar artists">
-            <mat-progress-spinner mode="indeterminate" class="centered-spinner" *ngIf="!similarArtists"></mat-progress-spinner>
+            <div class="col-md-12 spinner-div" *ngIf="!similarArtists">
+                <mat-progress-spinner mode="indeterminate" class="centered-spinner"></mat-progress-spinner>
+            </div>
             <div class="content-div col-md-12" *ngIf="similarArtists">
                 <app-artist class="artist-card col-md-2" *ngFor="let artist of similarArtists" [artist]="artist"></app-artist>
             </div>

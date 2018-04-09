@@ -1,8 +1,11 @@
-.centered-spinner {
+.spinner-div {
+    margin-top: 30px;
+}
+
+.spinner-div .centered-spinner {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 40px;
+    margin: 0 auto;
+    float: initial;
 }
 
 .artist-block {
@@ -44,7 +47,6 @@
 .content-div {
     margin-top: 25px;
 }
-
 
 .more-button {
     display: block;

@@ -23,9 +23,9 @@ namespace MusicPortal.Web.Controllers {
         }
 
         [HttpGet]
-        [Route("api/artist-albums/{name}/{page}")]
-        public async Task<IActionResult> GetTopArtists([Required]string name, [Required]int page) {
-            List<AlbumDto> albums = await _albumService.GetTopArtistsAlbums(name, page, 10);
+        [Route("api/artist-albums/{name}/{page}/{itemsPerPage}")]
+        public async Task<IActionResult> GetTopArtists([Required]string name, [Required]int page, [Required]int itemsPerPage) {
+            List<AlbumDto> albums = await _albumService.GetTopArtistsAlbums(name, page, itemsPerPage);
             if (albums == null) {
                 return BadRequest("last.fm not responding");
             }

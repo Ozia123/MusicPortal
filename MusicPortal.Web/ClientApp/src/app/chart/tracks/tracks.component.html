@@ -1,3 +1,13 @@
-<p>
-  tracks works!
-</p>
+<mat-progress-spinner mode="indeterminate" class="centered-spinner" *ngIf="!tracks"></mat-progress-spinner>
+
+<div class="tracks-div col-md-12" *ngIf="tracks">
+  <mat-list item-height="100px">
+    <app-track *ngFor="let track of tracks" [track]="track"></app-track>
+  </mat-list>
+  <mat-paginator class="col-md-12" [length]="length"
+    [pageIndex]="pageIndex"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="changePage($event)">
+  </mat-paginator>
+</div>

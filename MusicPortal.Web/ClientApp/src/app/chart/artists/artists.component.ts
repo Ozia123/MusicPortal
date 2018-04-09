@@ -53,11 +53,10 @@ export class ArtistsComponent implements OnInit {
   }
 
   async getArtists() {
-    console.log(this.pageIndex + " size: " + this.pageSize);
     this.artists = await this.artistService.getTopArtists(this.pageIndex + 1, this.pageSize);
   }
 
-  changePage(event: PageEvent) { // update both page indexes so you have a consistent view
+  changePage(event: PageEvent) {
     if (event.pageSize != this.getPageSize()) {
       this.changePageSize(event.pageSize);
       return;

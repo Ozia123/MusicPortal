@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore.Design;
 using MusicPortal.BLL.BusinessModels;
 using MusicPortal.BLL.Interfaces;
 using MusicPortal.DAL.EF;
@@ -26,7 +27,7 @@ namespace MusicPortal.BLL.Services {
         }
 
         public IAlbumService CreateAlbumService() {
-            return new AlbumService(CreateUnitOfWork(), _mapper, new LastFm());
+            return new AlbumService(CreateUnitOfWork(), _mapper);
         }
 
         public ITrackService CreateTrackService() {

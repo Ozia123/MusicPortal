@@ -48,7 +48,27 @@ namespace MusicPortal.BLL.Services {
 
         public async Task<List<TrackDto>> GetTopTracks(int page, int itemsPerPage) {
             List<TrackDto> tracks = await _lastFm.GetTopTracks(page, itemsPerPage);
+            tracks = tracks.Skip(tracks.Count - itemsPerPage).ToList();
+            await AddTracksToDatabaseIfNeeded(tracks);
             return tracks;
+        }
+
+        public async Task<List<TrackDto>> GetTopArtistsTracks(string artistName, int page, int itemsPerPage = 20) {
+            List<TrackDto> tracks = await _lastFm.GetTopArtistsTracks(artistName, page, itemsPerPage);
+            tracks = tracks.Skip(tracks.Count - itemsPerPage).ToList();
+            await AddTracksToDatabaseIfNeeded(tracks);
+            return tracks;
+        }
+
+        private async Task AddTracksToDatabaseIfNeeded(List<TrackDto> tracks) {
+            IEnumerable<TrackDto> tracksToAdd = GetTracksWhichNotInDatabase(tracks);
+            foreach (var track in tracksToAdd) {
+                await _database.TrackRepository.Create(_mapper.Map<TrackDto, Track>(track));
+            }
+        }
+
+        private IEnumerable<TrackDto> GetTracksWhichNotInDatabase(IEnumerable<TrackDto> tracks) {
+            return tracks.Where(tDto => !_database.TrackRepository.Query().Select(t => t.Name).Contains(tDto.Name));
         }
     }
 }

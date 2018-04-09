@@ -23,12 +23,15 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatListModule } from '@angular/material/list';
 
 import { ArtistService } from './services/artist.service';
+import { AlbumService } from './services/album.service';
 import { TrackService } from './services/track.service';
 
 import { ArtistComponent } from './artist/artist.component';
 import { TrackComponent } from './track/track.component';
 import { ArtistsComponent } from './chart/artists/artists.component';
+import { TracksComponent } from './chart/tracks/tracks.component'
 import { ArtistProfileComponent } from './artist-profile/artist-profile.component';
+import { AlbumComponent } from './album/album.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,9 @@ import { ArtistProfileComponent } from './artist-profile/artist-profile.componen
     ArtistComponent,
     TrackComponent,
     ArtistsComponent,
-    ArtistProfileComponent
+    TracksComponent,
+    ArtistProfileComponent,
+    AlbumComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -60,11 +65,13 @@ import { ArtistProfileComponent } from './artist-profile/artist-profile.componen
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'chart/artists/:page', component: ArtistsComponent },
-      { path: 'artist/:name', component: ArtistProfileComponent}
+      { path: 'chart/tracks/:page', component: TracksComponent },
+      { path: 'artist/:name', component: ArtistProfileComponent }
     ])
   ],
   providers: [
     ArtistService,
+    AlbumService,
     TrackService
   ],
   bootstrap: [AppComponent]

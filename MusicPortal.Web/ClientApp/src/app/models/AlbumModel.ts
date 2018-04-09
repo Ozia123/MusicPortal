@@ -4,5 +4,6 @@ export class AlbumModel {
     public playCount: number = 0;
     public releaseDate: string = '';
     public pictureURL: string = '';
+    public artistName: string = '';
     public artistId: string = '';
 }

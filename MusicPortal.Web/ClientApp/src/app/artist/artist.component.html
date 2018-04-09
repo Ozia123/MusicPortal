@@ -1,9 +1,11 @@
 <mat-card class="card">
-  <img class="photo" mat-card-image src="{{ artist.pictureURL }}">
+  <a routerLink="/artist/{{artist.name}}" routerLinkActive="active-link">
+    <img class="photo" mat-card-image src="{{ artist.pictureURL }}">
+  </a>
   <mat-card-content>
-    <h3>{{ artist.name }}</h3>
+    <h4>{{ artist.name }}</h4>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button>View full artist's profile</button>
+    <button routerLink="/artist/{{artist.name}}" routerLinkActive="active-link" mat-button>View full artist's profile</button>
   </mat-card-actions>
 </mat-card>

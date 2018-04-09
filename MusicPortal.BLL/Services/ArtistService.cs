@@ -29,6 +29,11 @@ namespace MusicPortal.BLL.Services {
             return _mapper.Map<Artist, ArtistDto>(artist);
         }
 
+        public ArtistDto GetByName(string name) {
+            Artist artist = _database.ArtistRepository.GetByName(name);
+            return _mapper.Map<Artist, ArtistDto>(artist);
+        }
+
         public async Task<ArtistDto> Create(ArtistDto item) {
             Artist artist = _mapper.Map<ArtistDto, Artist>(item);
             artist = await _database.ArtistRepository.Create(artist);
@@ -48,7 +53,33 @@ namespace MusicPortal.BLL.Services {
 
         public async Task<List<ArtistDto>> GetTopArtists(int page, int itemsPerPage) {
             List<ArtistDto> artists = await _lastFm.GetTopArtists(page, itemsPerPage);
-            return artists.Skip(artists.Count - itemsPerPage).ToList();
+            artists = artists.Skip(artists.Count - itemsPerPage).ToList();
+            await GetFullInfoAndAddToDatabase(artists);
+            return artists;
+        }
+
+        public async Task<List<ArtistDto>> GetSimilarArtists(string name) {
+            List<ArtistDto> artists = await _lastFm.GetSimilarArtists(name);
+            await GetFullInfoAndAddToDatabase(artists);
+            return artists;
+        }
+
+        private async Task GetFullInfoAndAddToDatabase(List<ArtistDto> artists) {
+            foreach (var artist in artists) {
+                await AddArtistToDatabaseIfNotExistsAndGetFullInfo(artist);
+            }
+        }
+
+        private async Task AddArtistToDatabaseIfNotExistsAndGetFullInfo(ArtistDto artist) {
+            Artist artistFromDb = _database.ArtistRepository.GetByName(artist.Name);
+            if (artistFromDb == null) {
+                ArtistDto artistToAdd = await _lastFm.GetFullInfoArtist(artist.Name);
+                await AddArtistToDatabase(artistToAdd);
+            }
+        }
+
+        private async Task AddArtistToDatabase(ArtistDto artist) {
+            await _database.ArtistRepository.Create(_mapper.Map<ArtistDto, Artist>(artist));
         }
     }
 }

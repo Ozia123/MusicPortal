@@ -32,5 +32,16 @@ namespace MusicPortal.Web.Controllers {
 
             return Ok(_mapper.Map<List<TrackDto>, List<TrackModel>>(tracks));
         }
+
+        [HttpGet]
+        [Route("api/artist/top-tracks/{artistName}/{page}/{itemsPerPage}")]
+        public async Task<IActionResult> GetTopArtistsTracks([Required]string artistName, [Required]int page, [Required]int itemsPerPage) {
+            List<TrackDto> tracks = await _trackService.GetTopArtistsTracks(artistName, page, itemsPerPage);
+            if (tracks == null) {
+                return BadRequest("last.fm not responding");
+            }
+
+            return Ok(_mapper.Map<List<TrackDto>, List<TrackModel>>(tracks));
+        }
     }
 }

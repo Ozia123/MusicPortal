@@ -1,22 +1,19 @@
 <h2>Top artists</h2>
-<div class="artists-div" *ngIf="artists">
-  <app-artist class="card" *ngFor="let artist of artists" [artist]="artist"></app-artist>
-  <button (click)="onMoreArtists()" class="more-button" mat-raised-button color="primary">More</button>
+<div class="col-md-12" class="artists-div" *ngIf="artists">
+  <app-artist class="col-md-2" *ngFor="let artist of artists" [artist]="artist"></app-artist>
+  <div class="more-div col-md-12">
+      <button class="more-button" routerLink="chart/artists/1" routerLinkActive="active-link" mat-raised-button color="primary">More</button>
+  </div>
 </div>
 
 <mat-progress-spinner mode="indeterminate" class="centered-spinner" *ngIf="!artists || !tracks"></mat-progress-spinner>
 
-<div *ngIf="artists && tracks">
+<div class="col-md-12" *ngIf="artists && tracks">
   <h2>Top tracks</h2>
   <mat-list item-height="100px">
-    <div *ngFor="let track of tracks">
-      <mat-list-item>
-        <img mat-list-icon class="trackImage" src="{{ track.pictureURL }}">
-        <h4 mat-line>{{ track.name }}</h4>
-        <button (click)="onNavigate(track.trackURL)" class="lastfm-button" mat-button color="warn">last.fm</button>
-      </mat-list-item>
-      <mat-divider></mat-divider>
-    </div>
+    <app-track *ngFor="let track of tracks" [track]="track"></app-track>
   </mat-list>
-  <button class="more-button" mat-raised-button color="primary">More</button>
+  <div class="more-div col-md-12">
+    <button class="more-button" routerLink="chart/tracks/1" routerLinkActive="active-link" mat-raised-button color="primary">More</button>
+  </div>
 </div>

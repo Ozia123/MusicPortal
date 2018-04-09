@@ -26,12 +26,15 @@ export class ArtistsComponent implements OnInit {
     this.paginator = mp;
   }
 
+  constructor(private router: Router, private route: ActivatedRoute, private artistService: ArtistService) {
+  }
+
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.pageIndex = this.getPageIndex();
       this.pageSize = this.getPageSize();
       this.getArtists();
-   });
+    });
   }
 
   private getPageIndex(): number {
@@ -49,15 +52,11 @@ export class ArtistsComponent implements OnInit {
     return Number(pageSizeStr) || 20;
   }
 
-  constructor(private router: Router, private route: ActivatedRoute, private artistService: ArtistService) {
-  }
-
   async getArtists() {
-    console.log(this.pageIndex + " size: " + this.pageSize);
     this.artists = await this.artistService.getTopArtists(this.pageIndex + 1, this.pageSize);
   }
 
-  changePage(event: PageEvent) { // update both page indexes so you have a consistent view
+  changePage(event: PageEvent) {
     if (event.pageSize != this.getPageSize()) {
       this.changePageSize(event.pageSize);
       return;

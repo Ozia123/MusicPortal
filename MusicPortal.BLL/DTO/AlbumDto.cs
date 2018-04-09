@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MusicPortal.BLL.DTO {
     public class AlbumDto {
@@ -12,6 +13,10 @@ namespace MusicPortal.BLL.DTO {
 
         public string PictureURL { get; set; }
 
+        public string ArtistName { get; set; }
+
         public string ArtistId { get; set; }
+
+        public List<string> TrackNames { get; set; }
     }
 }

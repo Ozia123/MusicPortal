@@ -11,8 +11,7 @@ export class TrackService {
     private http: Http,
     private router: Router,
     @Inject('BASE_URL') private baseUrl: string) 
-  { 
-  }
+  { }
 
   private options: any = {
     withCredentials: true
@@ -20,6 +19,11 @@ export class TrackService {
 
   public async getTopTracks(page: number, itemsPerPage: number): Promise<TrackModel[]> {
     let tracks: TrackModel[] = (await this.http.get('http://localhost:63678/' + HttpQueryStrings.getTopTracks + page + '/' + itemsPerPage, this.options).toPromise()).json();
+    return tracks;
+  }
+
+  public async getTopArtistsTracks(artistName: string, page: number, itemsPerPage: number): Promise<TrackModel[]> {
+    let tracks: TrackModel[] = (await this.http.get('http://localhost:63678/' + HttpQueryStrings.getTopArtistsTracks + artistName + '/' + page + '/' + itemsPerPage, this.options).toPromise()).json();
     return tracks;
   }
 }

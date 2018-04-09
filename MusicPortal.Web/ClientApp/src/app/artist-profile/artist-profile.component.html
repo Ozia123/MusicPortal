@@ -1,0 +1,45 @@
+<div class="albums-div col-md-12" *ngIf="!artist">
+    <mat-progress-spinner mode="indeterminate" class="centered-spinner"></mat-progress-spinner>
+</div>
+
+<div class="artist-block col-md-12" *ngIf="artist">
+    <img class="artist-image" src="{{artist.pictureURL}}">
+    <h1 class="artist-name">{{ artist.name }}</h1>
+
+    <mat-tab-group class="tab-content">
+        <mat-tab label="Top albums">
+            <div class="albums-div col-md-12" *ngIf="albums">
+                <app-album  class="album-card col-md-2" *ngFor="let album of albums" [album]="album"></app-album>
+            </div>
+            <div class="col-md-12 spinner-div" *ngIf="showAlbumsPageSpinner">
+                <mat-progress-spinner mode="indeterminate" class="centered-spinner"></mat-progress-spinner>
+            </div>
+            <button *ngIf="isMoreAlbums" (click)="onMoreAlbums()" class="more-button" mat-raised-button color="primary">More</button>
+        </mat-tab>
+        <mat-tab label="Top tracks">
+            <div class="content-div col-md-12" *ngIf="tracks">
+                <mat-list item-height="100px">
+                    <app-track *ngFor="let track of tracks" [track]="track"></app-track>
+                </mat-list>
+            </div>
+            <div class="col-md-10 spinner-div" *ngIf="showTracksPageSpinner">
+                <mat-progress-spinner mode="indeterminate" class="centered-spinner"></mat-progress-spinner>
+            </div>
+            <button *ngIf="isMoreTracks" (click)="onMoreTracks()" class="more-button" mat-raised-button color="primary">More</button>
+        </mat-tab>
+        <mat-tab label="Similar artists">
+            <div class="col-md-12 spinner-div" *ngIf="!similarArtists">
+                <mat-progress-spinner mode="indeterminate" class="centered-spinner"></mat-progress-spinner>
+            </div>
+            <div class="content-div col-md-12" *ngIf="similarArtists">
+                <app-artist class="artist-card col-md-2" *ngFor="let artist of similarArtists" [artist]="artist"></app-artist>
+            </div>
+        </mat-tab>
+        <mat-tab label="Biography">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <p class="bio-text">{{ artist.biography }}</p>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

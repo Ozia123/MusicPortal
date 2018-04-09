@@ -1,0 +1,27 @@
+.spinner-div {
+    margin-top: 30px;
+}
+
+.spinner-div .centered-spinner {
+    display: block;
+    margin: 0 auto;
+    float: initial;
+}
+
+.content {
+    margin-top: 30px;
+}
+
+.content .album-image {
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.content .album-title {
+    padding-left: 10px;
+}
+
+.content .album-author {
+    padding-left: 12px;
+}

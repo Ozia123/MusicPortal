@@ -32,6 +32,7 @@ import { ArtistsComponent } from './chart/artists/artists.component';
 import { TracksComponent } from './chart/tracks/tracks.component'
 import { ArtistProfileComponent } from './artist-profile/artist-profile.component';
 import { AlbumComponent } from './album/album.component';
+import { AlbumPageComponent } from './album-page/album-page.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { AlbumComponent } from './album/album.component';
     ArtistsComponent,
     TracksComponent,
     ArtistProfileComponent,
-    AlbumComponent
+    AlbumComponent,
+    AlbumPageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -66,7 +68,9 @@ import { AlbumComponent } from './album/album.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'chart/artists/:page', component: ArtistsComponent },
       { path: 'chart/tracks/:page', component: TracksComponent },
-      { path: 'artist/:name', component: ArtistProfileComponent }
+      { path: 'artist/:name', component: ArtistProfileComponent },
+      { path: 'album/:name', component: AlbumPageComponent },
+      { path: '**', redirectTo: '' }
     ])
   ],
   providers: [

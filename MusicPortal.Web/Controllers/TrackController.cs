@@ -43,5 +43,16 @@ namespace MusicPortal.Web.Controllers {
 
             return Ok(_mapper.Map<List<TrackDto>, List<TrackModel>>(tracks));
         }
+
+        [HttpGet]
+        [Route("api/album-tracks/{albumName}")]
+        public IActionResult GetAlbumTracks([Required]string albumName) {
+            List<TrackDto> tracks = _trackService.GetAlbumTracks(albumName);
+            if (tracks == null) {
+                return BadRequest("tracks not found in database");
+            }
+
+            return Ok(_mapper.Map<List<TrackDto>, List<TrackModel>>(tracks));
+        }
     }
 }

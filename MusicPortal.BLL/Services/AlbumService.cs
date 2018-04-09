@@ -29,6 +29,12 @@ namespace MusicPortal.BLL.Services {
             return _mapper.Map<Album, AlbumDto>(album);
         }
 
+        public async Task<AlbumDto> GetByName(string name) {
+            Album album = _database.AlbumRepository.GetByName(name);
+            AlbumDto albumDto = _mapper.Map<Album, AlbumDto>(album);
+            return await GetFullInfoDto(albumDto);
+        }
+
         public async Task<AlbumDto> Create(AlbumDto item) {
             Album album = _mapper.Map<AlbumDto, Album>(item);
             album = await _database.AlbumRepository.Create(album);
@@ -59,6 +65,12 @@ namespace MusicPortal.BLL.Services {
 
         private IEnumerable<string> GetTrackNamesWhichNotInDatabase(IEnumerable<string> trackNames) {
             return trackNames.Where(tName => !_database.TrackRepository.Query().Select(t => t.Name).Contains(tName));
+        }
+
+        private async Task<AlbumDto> GetFullInfoDto(AlbumDto albumDto) {
+            Artist artist = await _database.ArtistRepository.GetById(albumDto.ArtistId);
+            albumDto.ArtistName = artist.Name;
+            return albumDto;
         }
 
         private async Task AddAlbumsToDatabaseIfNeeded(List<AlbumDto> albums, string artistName) {

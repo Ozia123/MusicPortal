@@ -1,0 +1,17 @@
+<div class="spinner-div col-md-12" *ngIf="!album">
+    <mat-progress-spinner mode="indeterminate" class="centered-spinner"></mat-progress-spinner>
+</div>
+
+<div class="col-md-1"></div>
+<div class="col-md-2 content" *ngIf="album">
+    <img class="album-image" src="{{album.pictureURL}}">
+    <h1 class="album-title">{{ album.name }}</h1>
+    <p class="album-author">
+      by <b><a routerLink="/artist/{{album.artistName}}" routerLinkActive="active-link">{{ album.artistName }}</a></b>
+    </p>
+</div>
+<div class="col-md-8 content" *ngIf="tracks">
+  <mat-list item-height="100px">
+    <app-track *ngFor="let track of tracks" [track]="track"></app-track>
+  </mat-list>
+</div>

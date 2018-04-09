@@ -32,5 +32,16 @@ namespace MusicPortal.Web.Controllers {
 
             return Ok(_mapper.Map<List<AlbumDto>, List<AlbumModel>>(albums));
         }
+
+        [HttpGet]
+        [Route("api/album/{name}")]
+        public async Task<IActionResult> GetFullInfoAlbum([Required]string name) {
+            AlbumDto album = await _albumService.GetByName(name);
+            if (album == null) {
+                return BadRequest("no such album in database");
+            }
+
+            return Ok(_mapper.Map<AlbumDto, AlbumModel>(album));
+        }
     }
 }

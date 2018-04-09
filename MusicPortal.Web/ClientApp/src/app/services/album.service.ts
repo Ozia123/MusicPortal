@@ -21,4 +21,9 @@ export class AlbumService {
     let albums: AlbumModel[] = (await this.http.get('http://localhost:63678/' + HttpQueryStrings.getTopArtistsAlbums + name + '/' + page + '/' + itemsPerPage, this.options).toPromise()).json();
     return albums;
   }
+
+  public async getFullInfoAlbum(name: string): Promise<AlbumModel> {
+    let album: AlbumModel = (await this.http.get('http://localhost:63678/' + HttpQueryStrings.getFullInfoAlbum + name, this.options).toPromise()).json();
+    return album;
+  }
 }

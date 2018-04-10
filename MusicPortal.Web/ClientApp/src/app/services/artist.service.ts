@@ -18,17 +18,17 @@ export class ArtistService {
   };
 
   public async getTopArtists(page: number, itemsPerPage: number): Promise<ArtistModel[]> {
-    let artists: ArtistModel[] = (await this.http.get('http://localhost:63678/' + HttpQueryStrings.getTopArtists + page + '/' + itemsPerPage, this.options).toPromise()).json();
+    let artists: ArtistModel[] = (await this.http.get(this.baseUrl + HttpQueryStrings.getTopArtists + page + '/' + itemsPerPage, this.options).toPromise()).json();
     return artists;
   }
 
   public async getFullInfoArtist(name: string): Promise<ArtistModel> {
-    let artist: ArtistModel = (await this.http.get('http://localhost:63678/' + HttpQueryStrings.getFullInfoArtist + name, this.options).toPromise()).json();
+    let artist: ArtistModel = (await this.http.get(this.baseUrl + HttpQueryStrings.getFullInfoArtist + name, this.options).toPromise()).json();
     return artist;
   }
 
   public async getSimilarArtists(name: string): Promise<ArtistModel[]> {
-    let artists: ArtistModel[] = (await this.http.get('http://localhost:63678/' + HttpQueryStrings.getSimilarArtists + name, this.options).toPromise()).json();
+    let artists: ArtistModel[] = (await this.http.get(this.baseUrl + HttpQueryStrings.getSimilarArtists + name, this.options).toPromise()).json();
     return artists;
   }
 }

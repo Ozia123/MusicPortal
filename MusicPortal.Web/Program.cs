@@ -1,13 +1,11 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using MusicPortal.DAL.EF;
-using System.IO;
 
 namespace MusicPortal.Web {
     public class Program {
         public static void Main(string[] args) {
-            BuildWebHost(args).Run();
+            var host = BuildWebHost(args);
+            host.Run();
         }
 
         public static IWebHost BuildWebHost(string[] args) =>

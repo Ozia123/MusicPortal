@@ -15,6 +15,8 @@ namespace MusicPortal.DAL.Entities {
 
         public string TrackURL { get; set; }
 
+        //public string CloudURL { get; set; }
+
         public string AlbumId { get; set; }
 
         public Album Album { get; set; }

@@ -67,18 +67,39 @@ namespace MusicPortal.BLL.Services {
             return trackNames.Where(tName => !_database.TrackRepository.Query().Select(t => t.Name).Contains(tName));
         }
 
-        private async Task<AlbumDto> GetFullInfoDto(AlbumDto albumDto) {
-            Artist artist = await _database.ArtistRepository.GetById(albumDto.ArtistId);
-            albumDto.ArtistName = artist.Name;
-            return albumDto;
+        private IEnumerable<TrackDto> GetTracksWhichNotHaveAlbumIdSpecifiedInDatabase(IEnumerable<string> trackNames) {
+            IEnumerable<Track> tracksFromDb = _database.TrackRepository.Query().Where(t => trackNames.Contains(t.Name) && t.AlbumId == null);
+            return _mapper.Map<IEnumerable<Track>, IEnumerable<TrackDto>>(tracksFromDb);
         }
 
         private async Task AddAlbumsToDatabaseIfNeeded(List<AlbumDto> albums, string artistName) {
             string artistId = _database.ArtistRepository.GetIdByName(artistName);
             IEnumerable<AlbumDto> albumsToAdd = GetAlbumsWhichNotInDatabase(albums);
-            foreach (var album in albumsToAdd) {
+            await CollectInfoAboutAlbumsAndAddItAllToDatabase(albumsToAdd, artistId, artistName);
+        }
+
+        private async Task CollectInfoAboutAlbumsAndAddItAllToDatabase(IEnumerable<AlbumDto> albums, string artistId, string artistName) {
+            foreach (var album in albums) {
                 AlbumDto albumFromDb = await AddAlbumToDatabase(album, artistId);
-                await GetAlbumsTracksAndAddThemToDatabase(albumFromDb, album.ArtistName);
+                AlbumDto fullInfoAlbum = await _lastFm.GetFullInfoAlbum(artistName, albumFromDb.Name);
+                await AddTracksToDatabaseIfNeeded(fullInfoAlbum.TrackNames, albumFromDb.AlbumId);
+                await UpdateTracksInDatabaseIfNeeded(fullInfoAlbum.TrackNames, albumFromDb.AlbumId);
+            }
+        }
+
+        private async Task AddTracksToDatabaseIfNeeded(IEnumerable<string> trackNames, string albumId) {
+            IEnumerable<string> trackNamesToAdd = GetTrackNamesWhichNotInDatabase(trackNames);
+            foreach (var trackName in trackNames) {
+                TrackDto trackToAdd = GetTrackDto(trackName, albumId);
+                await _database.TrackRepository.Create(_mapper.Map<TrackDto, Track>(trackToAdd));
+            }
+        }
+
+        private async Task UpdateTracksInDatabaseIfNeeded(IEnumerable<string> trackNames, string albumId) {
+            IEnumerable<TrackDto> tracksToUpdate = GetTracksWhichNotHaveAlbumIdSpecifiedInDatabase(trackNames);
+            tracksToUpdate = tracksToUpdate.Select(t => { t.AlbumId = albumId; return t; });
+            foreach (var track in tracksToUpdate) {
+                await _database.TrackRepository.Update(_mapper.Map<TrackDto, Track>(track));
             }
         }
 
@@ -87,19 +108,15 @@ namespace MusicPortal.BLL.Services {
             return await Create(album);
         }
 
-        private async Task GetAlbumsTracksAndAddThemToDatabase(AlbumDto albumFromDb, string artistName) {
-            AlbumDto fullInfoAlbum = await _lastFm.GetFullInfoAlbum(artistName, albumFromDb.Name);
-            IEnumerable<string> trackNamesToAdd = GetTrackNamesWhichNotInDatabase(fullInfoAlbum.TrackNames);
-            foreach (var trackName in trackNamesToAdd) {
-                TrackDto trackToAdd = GetTrackDto(artistName, trackName, albumFromDb.AlbumId);
-                await _database.TrackRepository.Create(_mapper.Map<TrackDto, Track>(trackToAdd));
-            }
+        private async Task<AlbumDto> GetFullInfoDto(AlbumDto albumDto) {
+            Artist artist = await _database.ArtistRepository.GetById(albumDto.ArtistId);
+            albumDto.ArtistName = artist.Name;
+            return albumDto;
         }
 
-        private TrackDto GetTrackDto(string artistName, string trackName, string albumId) {
+        private TrackDto GetTrackDto(string trackName, string albumId) {
             return new TrackDto {
                 Name = trackName,
-                ArtistName = artistName,
                 AlbumId = albumId
             };
         }

@@ -42,20 +42,13 @@ namespace MusicPortal.BLL.BusinessModels {
             return lastFmDtoMapper.MapTrack(fullInfoTrack);
         }
 
-        public async Task<List<ArtistDto>> GetFullInfoArtists(List<ArtistDto> artists) {
-            for (int i = 0; i < artists.Count; i++) {
-                artists[i] = await GetFullInfoArtist(artists[i].Name);
-            }
-            return artists;
+        public async Task<List<ArtistDto>> GetTopArtists(int page = 1, int itemsPerPage = 20) {
+            var artists = await client.Chart.GetTopArtistsAsync(page, itemsPerPage);
+            return lastFmDtoMapper.MapArtists(artists);
         }
 
         public async Task<List<ArtistDto>> GetSimilarArtists(string name) {
             var artists = await client.Artist.GetSimilarAsync(name);
-            return lastFmDtoMapper.MapArtists(artists);
-        }
-
-        public async Task<List<ArtistDto>> GetTopArtists(int page = 1, int itemsPerPage = 20) {
-            var artists = await client.Chart.GetTopArtistsAsync(page, itemsPerPage);
             return lastFmDtoMapper.MapArtists(artists);
         }
 

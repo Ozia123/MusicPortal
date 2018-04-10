@@ -13,11 +13,13 @@ namespace MusicPortal.BLL.Services {
         private readonly IUnitOfWork _database;
         private readonly IMapper _mapper;
         private readonly LastFm _lastFm;
+        private readonly LastFmResultFilter _resultFilter;
 
         public TrackService(IUnitOfWork unitOfWork, IMapper mapper) {
             _database = unitOfWork;
             _mapper = mapper;
             _lastFm = new LastFm();
+            _resultFilter = new LastFmResultFilter(_lastFm);
         }
 
         public IQueryable<Track> Query() {
@@ -48,15 +50,16 @@ namespace MusicPortal.BLL.Services {
 
         public async Task<List<TrackDto>> GetTopTracks(int page, int itemsPerPage) {
             List<TrackDto> tracks = await _lastFm.GetTopTracks(page, itemsPerPage);
-            tracks = tracks.Skip(tracks.Count - itemsPerPage).ToList();
+            tracks = await _resultFilter.GetFilteredTopTracks(tracks, page, itemsPerPage);
             await AddTracksToDatabaseIfNeeded(tracks);
             return tracks;
         }
 
         public async Task<List<TrackDto>> GetTopArtistsTracks(string artistName, int page, int itemsPerPage = 20) {
             List<TrackDto> tracks = await _lastFm.GetTopArtistsTracks(artistName, page, itemsPerPage);
-            tracks = tracks.Skip(tracks.Count - itemsPerPage).ToList();
-            return await AddTracksToDatabaseIfNeeded(tracks);
+            tracks = await _resultFilter.GetFilteredTopArtistsTracks(tracks, artistName, page, itemsPerPage);
+            await AddTracksToDatabaseIfNeeded(tracks);
+            return tracks;
         }
 
         public List<TrackDto> GetAlbumTracks(string albumName) {
@@ -76,12 +79,11 @@ namespace MusicPortal.BLL.Services {
             return _database.TrackRepository.Query().Where(t => t.AlbumId.Equals(albumId));
         }
 
-        private async Task<List<TrackDto>> AddTracksToDatabaseIfNeeded(List<TrackDto> tracks) {
+        private async Task AddTracksToDatabaseIfNeeded(List<TrackDto> tracks) {
             IEnumerable<TrackDto> tracksToAdd = GetTracksWhichNotInDatabase(tracks);
             foreach (var track in tracks) {
                 await Create(track);
             }
-            return tracks;
         }
     }
 }

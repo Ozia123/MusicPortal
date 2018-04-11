@@ -31,4 +31,9 @@ export class TrackService {
     let tracks: TrackModel[] = (await this.http.get(this.baseUrl + HttpQueryStrings.getAlbumTracks + albumName, this.options).toPromise()).json();
     return tracks;
   }
+
+  public async updateTrack(track: TrackModel): Promise<TrackModel> {
+    track = (await this.http.post(this.baseUrl + HttpQueryStrings.updateTrack, track, this.options).toPromise()).json();
+    return track;
+  }
 }

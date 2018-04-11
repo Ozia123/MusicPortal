@@ -52,14 +52,14 @@ namespace MusicPortal.BLL.Services {
             List<TrackDto> tracks = await _lastFm.GetTopTracks(page, itemsPerPage);
             tracks = await _resultFilter.GetFilteredTopTracks(tracks, page, itemsPerPage);
             await AddTracksToDatabaseIfNeeded(tracks);
-            return tracks;
+            return GetTracksFromDatabase(tracks);
         }
 
         public async Task<List<TrackDto>> GetTopArtistsTracks(string artistName, int page, int itemsPerPage = 20) {
             List<TrackDto> tracks = await _lastFm.GetTopArtistsTracks(artistName, page, itemsPerPage);
             tracks = await _resultFilter.GetFilteredTopArtistsTracks(tracks, artistName, page, itemsPerPage);
             await AddTracksToDatabaseIfNeeded(tracks);
-            return tracks;
+            return GetTracksFromDatabase(tracks);
         }
 
         public List<TrackDto> GetAlbumTracks(string albumName) {
@@ -84,6 +84,22 @@ namespace MusicPortal.BLL.Services {
             foreach (var track in tracks) {
                 await Create(track);
             }
+        }
+
+        private List<TrackDto> GetTracksFromDatabase(List<TrackDto> tracksToSearch) {
+            List<TrackDto> tracksFromDb = new List<TrackDto>();
+            foreach (var track in tracksToSearch) {
+                TrackDto trackFromDb = GetTrackFromDatabase(track);
+                tracksFromDb.Add(trackFromDb);
+            }
+            return tracksFromDb;
+        }
+
+        private TrackDto GetTrackFromDatabase(TrackDto track) {
+            Track trackFromDb = _database.TrackRepository.GetByName(track.Name);
+            track.TrackId = trackFromDb.TrackId;
+            track.CloudURL = trackFromDb.CloudURL;
+            return track;
         }
     }
 }

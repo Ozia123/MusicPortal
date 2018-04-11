@@ -1,5 +1,17 @@
 <mat-list-item>
   <img mat-list-icon class="track-image" src="{{ track.pictureURL }}">
-  <h4 mat-line><a routerLink="/artist/{{track.artistName}}" routerLinkActive="active-link"><b>{{ track.artistName }}</b></a> - {{ track.name }}</h4>
-  <button *ngIf="track.trackURL" (click)="onNavigate(track.trackURL)" class="lastfm-button" mat-button color="warn">last.fm</button>
+  <h4 mat-line>
+    <button *ngIf="track.cloudURL" mat-icon-button color="primary">
+      <mat-icon>play_arrow</mat-icon>
+    </button>
+    <a routerLink="/artist/{{track.artistName}}" routerLinkActive="active-link"><b>{{ track.artistName }}</b></a> - {{ track.name }}
+  </h4>
+  
+  <button *ngIf="track.cloudURL" (click)="onNavigate(track.cloudURL)" mat-icon-button>
+    <mat-icon>file_download</mat-icon>
+  </button>
+  <button *ngIf="!track.cloudURL" (click)="showUploadDialog()" class="right-button" mat-icon-button>
+    <mat-icon>file_upload</mat-icon>
+  </button>
+  <button *ngIf="track.trackURL" (click)="onNavigate(track.trackURL)" class="right-button" mat-button color="warn">last.fm</button>
 </mat-list-item>

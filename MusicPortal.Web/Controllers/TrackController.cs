@@ -54,5 +54,16 @@ namespace MusicPortal.Web.Controllers {
 
             return Ok(_mapper.Map<List<TrackDto>, List<TrackModel>>(tracks));
         }
+
+        [HttpPost]
+        [Route("api/track/update")]
+        public async Task<IActionResult> SetTrackCloudUrl([FromBody]TrackModel trackModel) {
+            TrackDto track = await _trackService.Update(_mapper.Map<TrackModel, TrackDto>(trackModel));
+            if (track == null) {
+                return BadRequest("trackId is incorrect");
+            }
+
+            return Ok(_mapper.Map<TrackDto, TrackModel>(track));
+        }
     }
 }

@@ -7,4 +7,5 @@ export class HttpQueryStrings {
     public static getAlbumTracks: string = 'api/album-tracks/';
     public static getTopArtistsTracks: string = 'api/artist/top-tracks/';
     public static getTopTracks: string = 'api/chart/tracks/';
+    public static updateTrack: string = 'api/track/update';
 }

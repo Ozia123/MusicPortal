@@ -21,6 +21,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { ArtistService } from './services/artist.service';
 import { AlbumService } from './services/album.service';
@@ -34,6 +37,14 @@ import { ArtistProfileComponent } from './artist-profile/artist-profile.componen
 import { AlbumComponent } from './album/album.component';
 import { AlbumPageComponent } from './album-page/album-page.component';
 
+import { environment } from '../environments/environment';
+import { AngularFireModule } from 'angularfire2';
+
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { UploadDialogComponent } from './track/upload-dialog/upload-dialog.component';
+import { DropZoneDirective } from './drop-zone.directive';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +56,12 @@ import { AlbumPageComponent } from './album-page/album-page.component';
     TracksComponent,
     ArtistProfileComponent,
     AlbumComponent,
-    AlbumPageComponent
+    AlbumPageComponent,
+    UploadDialogComponent,
+    DropZoneDirective
+  ],
+  entryComponents: [
+    UploadDialogComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -63,7 +79,14 @@ import { AlbumPageComponent } from './album-page/album-page.component';
     FlexLayoutModule,
     MatCardModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatSnackBarModule,
     MatPaginatorModule,
+    MatDialogModule,
+    BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireStorageModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'chart/artists/:page', component: ArtistsComponent },

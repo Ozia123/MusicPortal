@@ -4,5 +4,13 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyAKL84VNKWSiihosvSTD1z6vc44lAeAhWI',
+    authDomain: 'musicportal-cecd8.firebaseapp.com',
+    databaseURL: 'https://musicportal-cecd8.firebaseio.com',
+    projectId: 'musicportal-cecd8',
+    storageBucket: 'musicportal-cecd8.appspot.com',
+    messagingSenderId: '872859256924'
+  }
 };

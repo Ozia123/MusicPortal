@@ -13,11 +13,13 @@ namespace MusicPortal.BLL.Services {
         private readonly IUnitOfWork _database;
         private readonly IMapper _mapper;
         private readonly LastFm _lastFm;
+        private readonly LastFmResultFilter _resultFilter;
 
         public AlbumService(IUnitOfWork unitOfWork, IMapper mapper) {
             _database = unitOfWork;
             _mapper = mapper;
             _lastFm = new LastFm();
+            _resultFilter = new LastFmResultFilter(_lastFm);
         }
 
         public IQueryable<Album> Query() {
@@ -54,7 +56,7 @@ namespace MusicPortal.BLL.Services {
 
         public async Task<List<AlbumDto>> GetTopArtistsAlbums(string name, int page, int itemsPerPage = 20) {
             List<AlbumDto> albums = await _lastFm.GetTopArtistsAlbums(name, page, itemsPerPage);
-            albums = albums.Skip(albums.Count - itemsPerPage).ToList();
+            albums = await _resultFilter.GetFilteredTopArtistsAlbums(albums, name, page, itemsPerPage);
             await AddAlbumsToDatabaseIfNeeded(albums, name);
             return albums;
         }

@@ -19,12 +19,20 @@ namespace MusicPortal.BLL.BusinessModels {
             return await _lastFm.GetTopArtistsTracks(artistName, page - 1, itemsPerPage);
         }
 
+        private async Task<List<AlbumDto>> GetPreviousPageResultOfTopArtistsAlbums(string artistName, int page, int itemsPerPage) {
+            return await _lastFm.GetTopArtistsAlbums(artistName, page - 1, itemsPerPage);
+        }
+
         private List<TrackDto> CompareTracksWithPreviousPageResult(List<TrackDto> tracks, List<TrackDto> previousPageResult) {
             bool isSameDataFound = previousPageResult.Exists(t => tracks.Contains(t));
             if (isSameDataFound) {
                 return new List<TrackDto>();
             }
             return tracks;
+        }
+
+        private List<AlbumDto> CompareAlbumsWithPreviousPageResult(List<AlbumDto> albums, List<AlbumDto> previousPageResult) {
+            return albums.Where(t => !previousPageResult.Select(pt => pt.Name).Contains(t.Name)).ToList();
         }
 
         public async Task<List<TrackDto>> GetFilteredTopTracks(List<TrackDto> tracks, int page, int itemsPerPage) {
@@ -43,6 +51,15 @@ namespace MusicPortal.BLL.BusinessModels {
                 tracks = CompareTracksWithPreviousPageResult(tracks, previousPageResult);
             }
             return tracks;
+        }
+
+        public async Task<List<AlbumDto>> GetFilteredTopArtistsAlbums(List<AlbumDto> albums, string artistName, int page, int itemsPerPage) {
+            albums = albums.Skip(albums.Count - itemsPerPage).ToList();
+            if (page != 1) {
+                List<AlbumDto> previousPageResult = await GetPreviousPageResultOfTopArtistsAlbums(artistName, page, itemsPerPage);
+                albums = CompareAlbumsWithPreviousPageResult(albums, previousPageResult);
+            }
+            return albums;
         }
     }
 }

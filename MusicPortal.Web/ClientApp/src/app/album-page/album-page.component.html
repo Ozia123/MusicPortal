@@ -5,7 +5,7 @@
 <div class="col-md-1"></div>
 <div class="col-md-2 content" *ngIf="album">
     <img class="album-image" src="{{album.pictureURL}}">
-    <h1 class="album-title">{{ album.name }}</h1>
+    <h1 class="col-sm-12">{{ album.name }}</h1>
     <p class="album-author">
       by <b><a routerLink="/artist/{{album.artistName}}" routerLinkActive="active-link">{{ album.artistName }}</a></b>
     </p>

@@ -22,7 +22,7 @@
                     <app-track *ngFor="let track of tracks" [track]="track"></app-track>
                 </mat-list>
             </div>
-            <div class="col-md-10 spinner-div" *ngIf="showTracksPageSpinner">
+            <div class="col-md-12 spinner-div" *ngIf="showTracksPageSpinner">
                 <mat-progress-spinner mode="indeterminate" class="centered-spinner"></mat-progress-spinner>
             </div>
             <button *ngIf="isMoreTracks" (click)="onMoreTracks()" class="more-button" mat-raised-button color="primary">More</button>

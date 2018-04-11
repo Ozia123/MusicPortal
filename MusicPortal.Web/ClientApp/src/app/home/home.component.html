@@ -6,7 +6,9 @@
   </div>
 </div>
 
-<mat-progress-spinner mode="indeterminate" class="centered-spinner" *ngIf="!artists || !tracks"></mat-progress-spinner>
+<div class="col-md-12" *ngIf="!artists || !tracks">
+  <mat-progress-spinner mode="indeterminate" class="centered-spinner"></mat-progress-spinner>
+</div>
 
 <div class="col-md-12" *ngIf="artists && tracks">
   <h2>Top tracks</h2>

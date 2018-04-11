@@ -1,5 +1,5 @@
 <mat-list-item>
   <img mat-list-icon class="track-image" src="{{ track.pictureURL }}">
   <h4 mat-line><a routerLink="/artist/{{track.artistName}}" routerLinkActive="active-link"><b>{{ track.artistName }}</b></a> - {{ track.name }}</h4>
-  <button (click)="onNavigate(track.trackURL)" class="lastfm-button" mat-button color="warn">last.fm</button>
+  <button *ngIf="track.trackURL" (click)="onNavigate(track.trackURL)" class="lastfm-button" mat-button color="warn">last.fm</button>
 </mat-list-item>

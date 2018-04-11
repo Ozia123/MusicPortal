@@ -8,7 +8,7 @@
 
     <mat-tab-group class="tab-content">
         <mat-tab label="Top albums">
-            <div class="albums-div col-md-12" *ngIf="albums">
+            <div class="content-div col-md-12" *ngIf="albums">
                 <app-album  class="album-card col-md-2" *ngFor="let album of albums" [album]="album"></app-album>
             </div>
             <div class="col-md-12 spinner-div" *ngIf="showAlbumsPageSpinner">

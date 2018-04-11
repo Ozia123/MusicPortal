@@ -67,9 +67,8 @@ namespace MusicPortal.BLL.Services {
             return trackNames.Where(tName => !_database.TrackRepository.Query().Select(t => t.Name).Contains(tName));
         }
 
-        private IEnumerable<TrackDto> GetTracksWhichNotHaveAlbumIdSpecifiedInDatabase(IEnumerable<string> trackNames) {
-            IEnumerable<Track> tracksFromDb = _database.TrackRepository.Query().Where(t => trackNames.Contains(t.Name) && t.AlbumId == null);
-            return _mapper.Map<IEnumerable<Track>, IEnumerable<TrackDto>>(tracksFromDb);
+        private IEnumerable<Track> GetTracksWhichNotHaveAlbumIdSpecifiedInDatabase(IEnumerable<string> trackNames) {
+            return _database.TrackRepository.Query().Where(t => trackNames.Contains(t.Name) && t.AlbumId == null);
         }
 
         private async Task AddAlbumsToDatabaseIfNeeded(List<AlbumDto> albums, string artistName) {
@@ -82,8 +81,8 @@ namespace MusicPortal.BLL.Services {
             foreach (var album in albums) {
                 AlbumDto albumFromDb = await AddAlbumToDatabase(album, artistId);
                 AlbumDto fullInfoAlbum = await _lastFm.GetFullInfoAlbum(artistName, albumFromDb.Name);
-                await AddTracksToDatabaseIfNeeded(fullInfoAlbum.TrackNames, albumFromDb.AlbumId);
                 await UpdateTracksInDatabaseIfNeeded(fullInfoAlbum.TrackNames, albumFromDb.AlbumId);
+                await AddTracksToDatabaseIfNeeded(fullInfoAlbum.TrackNames, albumFromDb.AlbumId);
             }
         }
 
@@ -96,11 +95,9 @@ namespace MusicPortal.BLL.Services {
         }
 
         private async Task UpdateTracksInDatabaseIfNeeded(IEnumerable<string> trackNames, string albumId) {
-            IEnumerable<TrackDto> tracksToUpdate = GetTracksWhichNotHaveAlbumIdSpecifiedInDatabase(trackNames);
+            IEnumerable<Track> tracksToUpdate = GetTracksWhichNotHaveAlbumIdSpecifiedInDatabase(trackNames);
             tracksToUpdate = tracksToUpdate.Select(t => { t.AlbumId = albumId; return t; });
-            foreach (var track in tracksToUpdate) {
-                await _database.TrackRepository.Update(_mapper.Map<TrackDto, Track>(track));
-            }
+            await _database.TrackRepository.UpdateRange(tracksToUpdate);
         }
 
         private async Task<AlbumDto> AddAlbumToDatabase(AlbumDto album, string artistId) {

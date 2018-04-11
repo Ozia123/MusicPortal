@@ -47,6 +47,12 @@ namespace MusicPortal.DAL.Repositories {
             return entity;
         }
 
+        public async Task<IEnumerable<TEntity>> UpdateRange(IEnumerable<TEntity> items) {
+            _dbSet.UpdateRange(items);
+            await _context.SaveChangesAsync();
+            return items;
+        }
+
         public IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties) {
             return Include(includeProperties).ToList();
         }

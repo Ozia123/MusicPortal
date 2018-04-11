@@ -40,10 +40,6 @@ namespace MusicPortal.Web {
             services.AddSpaStaticFiles(configuration => {
                 configuration.RootPath = "ClientApp/dist";
             });
-
-            services.Configure<IISOptions>(options => {
-                options.ForwardClientCertificate = false;
-            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env) {

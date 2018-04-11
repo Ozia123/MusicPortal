@@ -1,5 +1,6 @@
 .spinner-div {
     margin-top: 30px;
+    height: 200px;
 }
 
 .spinner-div .centered-spinner {
@@ -28,13 +29,11 @@
 }
 
 .tab-content .album-card {
-    height: 400px;
-    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 .tab-content .artist-card {
-    height: 350px;
-    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 .bio-text {

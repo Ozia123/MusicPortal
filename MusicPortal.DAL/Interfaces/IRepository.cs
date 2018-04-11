@@ -16,6 +16,8 @@ namespace MusicPortal.DAL.Interfaces {
 
         Task<TEntity> Update(TEntity item);
 
+        Task<IEnumerable<TEntity>> UpdateRange(IEnumerable<TEntity> items);
+
         Task<TEntity> Delete(TKey id);
 
         IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties);

@@ -1,11 +1,10 @@
-<mat-card class="card">
-  <a routerLink="/artist/{{artist.name}}" routerLinkActive="active-link">
-    <img class="photo" mat-card-image src="{{ artist.pictureURL }}">
-  </a>
-  <mat-card-content>
-    <h4>{{ artist.name }}</h4>
-  </mat-card-content>
-  <mat-card-actions>
-    <button routerLink="/artist/{{artist.name}}" routerLinkActive="active-link" mat-button>View full artist's profile</button>
-  </mat-card-actions>
-</mat-card>
+<a class="link" routerLink="/artist/{{artist.name}}" routerLinkActive="active-link">
+  <mat-card id="card">
+    <a routerLink="/artist/{{artist.name}}" routerLinkActive="active-link">
+      <img id="photo" mat-card-image src="{{ artist.pictureURL }}">
+    </a>
+    <mat-card-content>
+      <h4>{{ artist.name }}</h4>
+    </mat-card-content>
+  </mat-card>
+</a>

@@ -31,6 +31,7 @@ export class ArtistsComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
+      this.artists = null;
       this.pageIndex = this.getPageIndex();
       this.pageSize = this.getPageSize();
       this.getArtists();

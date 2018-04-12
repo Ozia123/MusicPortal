@@ -60,6 +60,9 @@ export class ArtistProfileComponent implements OnInit {
   }
 
   private async setArtist(name: string) {
+    this.similarArtists = null;
+    this.tracks = null;
+    this.albums = null;
     this.artist = await this.getArtist(name);
     if (this.artist == null) {
       this.router.navigate(['']);

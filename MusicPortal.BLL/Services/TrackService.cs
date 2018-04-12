@@ -51,15 +51,13 @@ namespace MusicPortal.BLL.Services {
         public async Task<List<TrackDto>> GetTopTracks(int page, int itemsPerPage) {
             List<TrackDto> tracks = await _lastFm.GetTopTracks(page, itemsPerPage);
             tracks = await _resultFilter.GetFilteredTopTracks(tracks, page, itemsPerPage);
-            await AddTracksToDatabaseIfNeeded(tracks);
-            return GetTracksFromDatabase(tracks);
+            return await GetTracksFromDatabaseAndAddIfNeeded(tracks);
         }
 
         public async Task<List<TrackDto>> GetTopArtistsTracks(string artistName, int page, int itemsPerPage = 20) {
             List<TrackDto> tracks = await _lastFm.GetTopArtistsTracks(artistName, page, itemsPerPage);
             tracks = await _resultFilter.GetFilteredTopArtistsTracks(tracks, artistName, page, itemsPerPage);
-            await AddTracksToDatabaseIfNeeded(tracks);
-            return GetTracksFromDatabase(tracks);
+            return await GetTracksFromDatabaseAndAddIfNeeded(tracks);
         }
 
         public List<TrackDto> GetAlbumTracks(string albumName) {
@@ -70,36 +68,26 @@ namespace MusicPortal.BLL.Services {
             List<Track> tracks = GetTracksByAlbumId(album.AlbumId).ToList();
             return _mapper.Map<List<Track>, List<TrackDto>>(tracks);
         }
-
-        private IEnumerable<TrackDto> GetTracksWhichNotInDatabase(IEnumerable<TrackDto> tracks) {
-            return tracks.Where(tDto => !_database.TrackRepository.Query().Select(t => t.Name).Contains(tDto.Name));
-        }
         
         private IEnumerable<Track> GetTracksByAlbumId(string albumId) {
             return _database.TrackRepository.Query().Where(t => t.AlbumId.Equals(albumId));
         }
 
-        private async Task AddTracksToDatabaseIfNeeded(List<TrackDto> tracks) {
-            IEnumerable<TrackDto> tracksToAdd = GetTracksWhichNotInDatabase(tracks);
+        private async Task<List<TrackDto>> GetTracksFromDatabaseAndAddIfNeeded(List<TrackDto> tracks) {
             foreach (var track in tracks) {
-                await Create(track);
+                Track trackFromDb = await GetTrackFromDatabaseOrCreateAndGet(track);
+                track.TrackId = trackFromDb.TrackId;
+                track.CloudURL = trackFromDb.CloudURL;
             }
+            return tracks;
         }
 
-        private List<TrackDto> GetTracksFromDatabase(List<TrackDto> tracksToSearch) {
-            List<TrackDto> tracksFromDb = new List<TrackDto>();
-            foreach (var track in tracksToSearch) {
-                TrackDto trackFromDb = GetTrackFromDatabase(track);
-                tracksFromDb.Add(trackFromDb);
-            }
-            return tracksFromDb;
-        }
-
-        private TrackDto GetTrackFromDatabase(TrackDto track) {
+        private async Task<Track> GetTrackFromDatabaseOrCreateAndGet(TrackDto track) {
             Track trackFromDb = _database.TrackRepository.GetByName(track.Name);
-            track.TrackId = trackFromDb.TrackId;
-            track.CloudURL = trackFromDb.CloudURL;
-            return track;
+            if (trackFromDb == null) {
+                trackFromDb = await _database.TrackRepository.Create(_mapper.Map<TrackDto, Track>(track));
+            }
+            return trackFromDb;
         }
     }
 }

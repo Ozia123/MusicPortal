@@ -24,10 +24,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSliderModule } from '@angular/material/slider';
 
 import { ArtistService } from './services/artist.service';
 import { AlbumService } from './services/album.service';
 import { TrackService } from './services/track.service';
+import { PlayerService } from './services/player.service';
 
 import { ArtistComponent } from './artist/artist.component';
 import { TrackComponent } from './track/track.component';
@@ -44,6 +46,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { UploadDialogComponent } from './track/upload-dialog/upload-dialog.component';
 import { DropZoneDirective } from './drop-zone.directive';
+import { PlayerComponent } from './player/player.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +61,8 @@ import { DropZoneDirective } from './drop-zone.directive';
     AlbumComponent,
     AlbumPageComponent,
     UploadDialogComponent,
-    DropZoneDirective
+    DropZoneDirective,
+    PlayerComponent
   ],
   entryComponents: [
     UploadDialogComponent
@@ -74,6 +78,7 @@ import { DropZoneDirective } from './drop-zone.directive';
     MatMenuModule,
     MatListModule,
     MatTabsModule,
+    MatSliderModule,
     MatButtonModule,
     MatGridListModule,
     FlexLayoutModule,
@@ -99,7 +104,8 @@ import { DropZoneDirective } from './drop-zone.directive';
   providers: [
     ArtistService,
     AlbumService,
-    TrackService
+    TrackService,
+    PlayerService
   ],
   bootstrap: [AppComponent]
 })

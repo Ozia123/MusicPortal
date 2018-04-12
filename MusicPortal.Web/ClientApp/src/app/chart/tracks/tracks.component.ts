@@ -30,6 +30,7 @@ export class TracksComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
+      this.tracks = null;
       this.pageIndex = this.getPageIndex();
       this.pageSize = this.getPageSize();
       this.getTracks();

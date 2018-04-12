@@ -65,5 +65,16 @@ namespace MusicPortal.Web.Controllers {
 
             return Ok(_mapper.Map<TrackDto, TrackModel>(track));
         }
+
+        [HttpPost]
+        [Route("api/track/console-upload")]
+        public async Task<IActionResult> UploadTrackThroughConsole([FromBody]TrackModel trackModel) {
+            TrackDto track = await _trackService.UploadTrackThroughConsole(_mapper.Map<TrackModel, TrackDto>(trackModel));
+            if (track == null) {
+                return BadRequest("some data is incorrect");
+            }
+
+            return Ok(_mapper.Map<TrackDto, TrackModel>(track));
+        }
     }
 }

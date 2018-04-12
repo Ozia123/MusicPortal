@@ -28,12 +28,19 @@ namespace MusicPortal.BLL.BusinessModels {
             };
         }
 
+        public string GetTrackImage(LastImageSet images) {
+            if (images == null) {
+                return defaultImageURL;
+            }
+            return images.Large.AbsoluteUri;
+        }
+
         public TrackDto MapTrack(LastTrack track) {
             return new TrackDto {
                 Name = track.Name,
                 Rank = track.Rank ?? 0,
                 PlayCount = track.PlayCount ?? 0,
-                PictureURL = track.Images.Large.AbsoluteUri ?? defaultImageURL,
+                PictureURL = GetTrackImage(track.Images),
                 TrackURL = track.Url.AbsoluteUri,
                 ArtistName = track.ArtistName ?? "",
                 AlbumName = track.AlbumName ?? ""

@@ -11,5 +11,6 @@ namespace MusicPortal.BLL.Interfaces {
         List<TrackDto> GetAlbumTracks(string albumName);
         Task<List<TrackDto>> GetTopTracks(int page, int itemsPerPage);
         Task<List<TrackDto>> GetTopArtistsTracks(string artistName, int page, int itemsPerPage);
+        Task<TrackDto> UploadTrackThroughConsole(TrackDto track);
     }
 }

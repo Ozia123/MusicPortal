@@ -68,6 +68,16 @@ namespace MusicPortal.BLL.Services {
             List<Track> tracks = GetTracksByAlbumId(album.AlbumId).ToList();
             return _mapper.Map<List<Track>, List<TrackDto>>(tracks);
         }
+
+        public async Task<TrackDto> UploadTrackThroughConsole(TrackDto track) {
+            TrackDto lastFmTrack = await _lastFm.GetFullInfoTrack(track.ArtistName, track.Name);
+            if (string.IsNullOrEmpty(lastFmTrack.Name)) {
+                return null;
+            }
+            lastFmTrack.CloudURL = track.CloudURL;
+            Track trackFromDb = await GetTrackFromDatabaseOrCreateAndGet(lastFmTrack);
+            return _mapper.Map<Track, TrackDto>(trackFromDb);
+        }
         
         private IEnumerable<Track> GetTracksByAlbumId(string albumId) {
             return _database.TrackRepository.Query().Where(t => t.AlbumId.Equals(albumId));

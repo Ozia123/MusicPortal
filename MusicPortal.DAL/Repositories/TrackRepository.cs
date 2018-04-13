@@ -9,6 +9,8 @@ namespace MusicPortal.DAL.Repositories {
         public TrackRepository(ApplicationContext context) : base(context) {
         }
 
+        // TODO: тут нужно использовать методы базового репозитория
+
         public IEnumerable<Track> AddRange(IEnumerable<Track> items) {
             List<Track> songs = new List<Track>();
 

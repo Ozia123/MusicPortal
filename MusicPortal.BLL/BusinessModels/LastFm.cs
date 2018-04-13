@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace MusicPortal.BLL.BusinessModels {
+    // TODO: Это в чистом виде сервис, а не модель, поэтому я бы перенес его
     public class LastFm {
         private readonly LastfmClient client;
         private readonly LastFmDtoMapper lastFmDtoMapper;
@@ -29,6 +30,7 @@ namespace MusicPortal.BLL.BusinessModels {
 
         public async Task<ArtistDto> GetFullInfoArtist(string artistName) {
             var fullInfoArtist = await GetFullInfoArtistFromLastFm(artistName);
+            // TODO: Можно использовать AutoMapper, будет проще
             return lastFmDtoMapper.MapArtist(fullInfoArtist);
         }
 

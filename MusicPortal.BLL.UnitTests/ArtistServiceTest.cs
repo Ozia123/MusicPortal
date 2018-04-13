@@ -11,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MusicPortal.BLL.UnitTests {
     public class ArtistServiceTest {
+
+        // TODO: Тут не совсем верно, тесты сервиса не должны использовать реальную базу и репозитории, а должны использовать заглушки
         private string connectionString = "Server=(localdb)\\mssqllocaldb;Database=MusicPortalDb;Trusted_Connection=True;MultipleActiveResultSets=true";
 
         private IArtistService GetArtistService() {

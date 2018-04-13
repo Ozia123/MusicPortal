@@ -4,6 +4,7 @@ using MusicPortal.DAL.EF;
 using MusicPortal.DAL.Repositories;
 
 namespace MusicPortal.BLL.Services {
+    // TODO: А где используется этот класс?
     class ServiceCreator : IServiceCreator {
         private readonly ApplicationContext _context;
         private readonly IMapper _mapper;

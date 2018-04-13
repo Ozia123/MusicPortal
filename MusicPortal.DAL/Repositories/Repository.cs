@@ -8,6 +8,7 @@ using MusicPortal.DAL.EF;
 using MusicPortal.DAL.Interfaces;
 
 namespace MusicPortal.DAL.Repositories {
+    // TODO: TKey тут не нужен, я думаю. PK обычно одного типа во всех таблицах
     public class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : class {
         protected readonly ApplicationContext _context;
         private readonly DbSet<TEntity> _dbSet;

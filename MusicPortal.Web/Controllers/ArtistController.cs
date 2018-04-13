@@ -25,11 +25,13 @@ namespace MusicPortal.Web.Controllers {
         [HttpGet]
         [Route("api/chart/artists/{page}/{itemsPerPage}")]
         public async Task<IActionResult> GetTopArtists([Required]int page, [Required]int itemsPerPage) {
+
+            // TODO: Не хватает проверки, есть ли данные в базе и вычитке оттуда
             List<ArtistDto> artists = await _artistService.GetTopArtists(page, itemsPerPage);
             if (artists == null) {
                 return BadRequest("last.fm not responding");
             }
-
+            // TODO: Можно добавить обработку исключений и формировать красивый ответ в этом случае (например, с указанием кода ошибки) 
             return Ok(_mapper.Map<List<ArtistDto>, List<ArtistModel>>(artists));
         }
 
@@ -47,6 +49,7 @@ namespace MusicPortal.Web.Controllers {
         [HttpGet]
         [Route("api/similar-artists/{name}")]
         public async Task<IActionResult> GetSimilarArtists([Required]string name) {
+            // TODO: Не хватает проверки, есть ли данные в базе и вычитке оттуда
             List<ArtistDto> artists = await _artistService.GetSimilarArtists(name);
             if (artists == null) {
                 return BadRequest("last.fm not responding");

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace MusicPortal.BLL.BusinessModels {
+    // TODO: Можно использовать AutoMapper, будет проще
     public class LastFmDtoMapper {
         private static string defaultImageURL = @"http://www.back2gaming.com/wp-content/gallery/tt-esports-shockspin/white_label.gif";
 

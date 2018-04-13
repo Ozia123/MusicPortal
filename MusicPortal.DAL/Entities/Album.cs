@@ -7,6 +7,7 @@ namespace MusicPortal.DAL.Entities {
     public class Album {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        // TODO: Лучше использовать GUID или long
         public string AlbumId { get; set; }
 
         public string Name { get; set; }
@@ -15,6 +16,7 @@ namespace MusicPortal.DAL.Entities {
 
         public string PictureURL { get; set; }
 
+        // TODO: Лучше использовать GUID или long
         public string ArtistId { get; set; }
 
         public Artist Artist { get; set; }

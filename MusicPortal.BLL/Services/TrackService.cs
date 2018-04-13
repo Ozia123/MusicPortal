@@ -105,6 +105,7 @@ namespace MusicPortal.BLL.Services {
                 trackFromDb = await _database.TrackRepository.Create(_mapper.Map<TrackDto, Track>(track));
                 return _mapper.Map<Track, TrackDto>(trackFromDb);
             }
+            track.TrackId = trackFromDb.TrackId;
             return await Update(track);
         }
     }

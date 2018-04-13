@@ -37,11 +37,14 @@ export class TrackComponent implements OnInit {
   checkIfPlaying() {
     this.playerService.getPlayerStatus().subscribe(
       status => {
-        if (status === 'ended' || status === 'paused' || this.track.cloudURL != this.playerService.getAudio().src) {
+        if (status === 'paused' || this.track.cloudURL != this.playerService.getAudio().src) {
           this.isPlaying = false;
         }
         else {
           this.isPlaying = true;
+        }
+        if (status == 'ended') {
+          this.isPlaying = false;
         }
       }
     );

@@ -47,6 +47,7 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { UploadDialogComponent } from './track/upload-dialog/upload-dialog.component';
 import { DropZoneDirective } from './drop-zone.directive';
 import { PlayerComponent } from './player/player.component';
+import { FilteredArtistsComponent } from './filtered-artists/filtered-artists.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { PlayerComponent } from './player/player.component';
     AlbumPageComponent,
     UploadDialogComponent,
     DropZoneDirective,
-    PlayerComponent
+    PlayerComponent,
+    FilteredArtistsComponent
   ],
   entryComponents: [
     UploadDialogComponent

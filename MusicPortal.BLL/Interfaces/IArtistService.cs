@@ -11,5 +11,6 @@ namespace MusicPortal.BLL.Interfaces {
         ArtistDto GetByName(string name);
         Task<List<ArtistDto>> GetTopArtists(int page, int itemsPerPage);
         Task<List<ArtistDto>> GetSimilarArtists(string name);
+        List<ArtistDto> GetArtistWhichPictureURLContainsThreeA();
     }
 }

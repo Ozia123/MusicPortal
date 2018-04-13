@@ -31,4 +31,9 @@ export class ArtistService {
     let artists: ArtistModel[] = (await this.http.get(this.baseUrl + HttpQueryStrings.getSimilarArtists + name, this.options).toPromise()).json();
     return artists;
   }
+
+  public async getFilteredArtists(): Promise<ArtistModel[]> {
+    let artists: ArtistModel[] = (await this.http.get(this.baseUrl + 'api/artist/filtered-artists' + name, this.options).toPromise()).json();
+    return artists;
+  }
 }

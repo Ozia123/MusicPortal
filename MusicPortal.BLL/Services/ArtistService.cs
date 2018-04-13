@@ -64,6 +64,11 @@ namespace MusicPortal.BLL.Services {
             return artists;
         }
 
+        public List<ArtistDto> GetArtistWhichPictureURLContainsThreeA() {
+            List<Artist> artists = _database.ArtistRepository.Query().Where(a => a.PictureURL.Contains("aaa")).ToList();
+            return _mapper.Map<List<Artist>, List<ArtistDto>>(artists);
+        }
+
         private IEnumerable<ArtistDto> GetArtistsWhichNotInDatabase(IEnumerable<ArtistDto> artists) {
             return artists.Where(aDto => !_database.ArtistRepository.Query().Select(a => a.Name).Contains(aDto.Name));
         }

@@ -105,8 +105,16 @@ namespace MusicPortal.BLL.Services {
                 trackFromDb = await _database.TrackRepository.Create(_mapper.Map<TrackDto, Track>(track));
                 return _mapper.Map<Track, TrackDto>(trackFromDb);
             }
-            track.TrackId = trackFromDb.TrackId;
-            return await Update(track);
+
+            return await UpdateIfNeeded(trackFromDb, track.CloudURL);
+        }
+
+        private async Task<TrackDto> UpdateIfNeeded(Track trackFromDb, string cloudURL) {
+            if (string.IsNullOrEmpty(trackFromDb.CloudURL)) {
+                trackFromDb.CloudURL = cloudURL;
+                await _database.TrackRepository.Update(trackFromDb);
+            }
+            return _mapper.Map<Track, TrackDto>(trackFromDb);
         }
     }
 }

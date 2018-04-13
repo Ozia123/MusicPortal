@@ -1,0 +1,3 @@
+<div class="artists-div col-md-12" *ngIf="filteedArtists">
+  <app-artist class="card col-md-2" *ngFor="let artist of filteedArtists" [artist]="artist"></app-artist>
+</div>

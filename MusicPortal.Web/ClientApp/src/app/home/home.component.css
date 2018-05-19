@@ -1,0 +1,33 @@
+.card {
+    max-width: 400px;
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.artists-div {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.more-div {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.more-div .more-button {
+    display: block;
+    margin: 0 auto;
+    float: initial;
+}
+
+.centered-spinner {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+}
+
+.mat-group {
+    margin-bottom: 15px;
+}

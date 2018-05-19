@@ -1,0 +1,13 @@
+#card:hover #photo {
+    opacity: 0.8;
+}
+
+#card #card-content {
+    height: 39px;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.link:hover {
+    text-decoration: none;
+}

@@ -1,0 +1,41 @@
+<h1 mat-dialog-title>Upload mp.3 for <b>{{ data.track.name }}</b></h1>
+<div mat-dialog-content>
+  <div class="dropzone" 
+    dropZone
+    (hovered)="toggleHover($event)"
+    (dropped)="startUpload($event)"
+    [class.hovering]="isHovering">
+    <div class="file">
+      <div *ngIf="!uploadStarted">
+        <h4>Drag and drop audio file</h4>
+        <label class="btn btn-default btn-file">
+          <div>or choose a file...</div>
+          <input type="file" (change)="startUpload($event.target.files)">
+        </label>
+      </div>
+      
+
+      <div *ngIf="fileName">
+        <p>Uploading <b>{{ fileName }}</b></p>
+      </div>
+
+      <div *ngIf="percentage | async as pct">
+        <mat-progress-bar
+          color="primary"
+          mode="determinate"
+          [value]="pct | number">
+        </mat-progress-bar>
+        {{ pct | number }}%
+      </div>
+
+      <div *ngIf="snapshot | async as snap">
+          <button (click)="task.pause()" [disabled]="!isActive(snap)" mat-button color="primary">Pause</button>
+          <button (click)="task.resume()" [disabled]="!(snap?.state === 'paused')" mat-button color="primary">Resume</button>
+          <button (click)="onCancel()" [disabled]="!isActive(snap)" mat-button color="warn">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onClose()">Close</button>
+</div>

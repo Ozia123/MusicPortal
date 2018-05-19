@@ -1,0 +1,14 @@
+.card {
+    margin-bottom: 20px;
+}
+
+.artists-div {
+    margin-top: 20px;
+}
+
+.centered-spinner {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+}

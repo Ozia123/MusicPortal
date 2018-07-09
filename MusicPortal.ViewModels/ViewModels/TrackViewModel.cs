@@ -1,5 +1,7 @@
-﻿namespace MusicPortal.BLL.DTO {
-    public class TrackDto {
+﻿using MusicPortal.ViewModels.Base;
+
+namespace MusicPortal.ViewModels.ViewModels {
+    public class TrackViewModel : IViewModel {
         public string TrackId { get; set; }
 
         public string Name { get; set; }

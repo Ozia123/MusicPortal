@@ -32,7 +32,8 @@
   <ItemGroup>
     <ProjectReference Include="..\MusicPortal.BLL\MusicPortal.BLL.csproj" />
     <ProjectReference Include="..\MusicPortal.DAL\MusicPortal.DAL.csproj" />
-    <ProjectReference Include="..\MusicPortal.WebForms\MusicPortal.WebForms.csproj" />
+    <ProjectReference Include="..\MusicPortal.Facade\MusicPortal.Facade.csproj" />
+    <ProjectReference Include="..\MusicPortal.ViewModels\MusicPortal.ViewModels.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,16 +1,20 @@
-﻿using MusicPortal.BLL.DTO;
+﻿using MusicPortal.BLL.Base;
 using MusicPortal.DAL.Entities;
+using MusicPortal.ViewModels.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace MusicPortal.BLL.Interfaces {
-    public interface ITrackService : IService<TrackDto, string> {
+    public interface ITrackService : IService<TrackViewModel, string> {
         IQueryable<Track> Query();
 
-        List<TrackDto> GetAlbumTracks(string albumName);
-        Task<List<TrackDto>> GetTopTracks(int page, int itemsPerPage);
-        Task<List<TrackDto>> GetTopArtistsTracks(string artistName, int page, int itemsPerPage);
-        Task<TrackDto> UploadTrackThroughConsole(TrackDto track);
+        List<TrackViewModel> GetAlbumTracks(string albumName);
+
+        Task<List<TrackViewModel>> GetTopTracks(int page, int itemsPerPage);
+
+        Task<List<TrackViewModel>> GetTopArtistsTracks(string artistName, int page, int itemsPerPage);
+
+        Task<TrackViewModel> UploadTrackThroughConsole(TrackViewModel track);
     }
 }

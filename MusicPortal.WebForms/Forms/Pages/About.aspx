@@ -41,7 +41,9 @@
             <ItemTemplate>
                 <div class="col-md-2 track-holder">
                     <img class="rounded-image col-md-12" src="<%# Eval("PictureURL") %>">
-                    <span class="text col-md-12"><%# Eval("Name") %></span>
+                    <div class="text-wrapper">
+                        <span class="text col-md-12"><%# Eval("Name") %></span>
+                    </div>
                 </div>
             </ItemTemplate>
         </asp:Repeater>
@@ -53,7 +55,9 @@
             <ItemTemplate>
                 <div class="col-md-2 track-holder">
                     <img class="rounded-image col-md-12" src="<%# Eval("PictureURL") %>">
-                    <span class="text col-md-12"><%# Eval("Name") %></span>
+                    <div class="text-wrapper">
+                        <span class="text col-md-12"><%# Eval("Name") %></span>
+                    </div>
                 </div>
             </ItemTemplate>
         </asp:Repeater>

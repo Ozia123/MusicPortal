@@ -1,7 +1,9 @@
-﻿using System;
+﻿using MusicPortal.ViewModels.Base;
+using System;
+using System.Collections.Generic;
 
-namespace MusicPortal.Web.Models {
-    public class AlbumModel {
+namespace MusicPortal.ViewModels.ViewModels {
+    public class AlbumViewModel : IViewModel {
         public string AlbumId { get; set; }
 
         public string Name { get; set; }
@@ -15,5 +17,7 @@ namespace MusicPortal.Web.Models {
         public string ArtistName { get; set; }
 
         public string ArtistId { get; set; }
+
+        public List<string> TrackNames { get; set; }
     }
 }

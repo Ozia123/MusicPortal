@@ -50,9 +50,13 @@ textarea {
     width: calc(100% + 40px);
 }
 
-.track-holder .text {
-    height: 30px;
+.track-holder .text-wrapper {
     overflow: hidden;
+    height: 30px;
+}
+
+.track-holder .text-wrapper .text {
+    word-wrap: break-word;
     font-size: 1.1em;
     text-align: center;
 }

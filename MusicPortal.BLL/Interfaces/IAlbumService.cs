@@ -1,14 +1,16 @@
-﻿using MusicPortal.BLL.DTO;
+﻿using MusicPortal.BLL.Base;
 using MusicPortal.DAL.Entities;
+using MusicPortal.ViewModels.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace MusicPortal.BLL.Interfaces {
-    public interface IAlbumService : IService<AlbumDto, string> {
+    public interface IAlbumService : IService<AlbumViewModel, string> {
         IQueryable<Album> Query();
 
-        Task<AlbumDto> GetByName(string name);
-        Task<List<AlbumDto>> GetTopArtistsAlbums(string name, int page, int itemsPerPage);
+        Task<AlbumViewModel> GetByName(string name);
+
+        Task<List<AlbumViewModel>> GetTopArtistsAlbums(string name, int page, int itemsPerPage);
     }
 }

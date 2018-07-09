@@ -13,8 +13,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
+import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
+import { HomeComponent } from './components/home/home.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -26,31 +26,31 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSliderModule } from '@angular/material/slider';
 
-import { ArtistService } from './services/artist.service';
-import { AlbumService } from './services/album.service';
-import { TrackService } from './services/track.service';
-import { PlayerService } from './services/player.service';
+import { ArtistService } from './services/artist/artist.service';
+import { AlbumService } from './services/album/album.service';
+import { TrackService } from './services/track/track.service';
+import { PlayerService } from './services/player/player.service';
 
-import { ArtistComponent } from './artist/artist.component';
-import { TrackComponent } from './track/track.component';
-import { ArtistsComponent } from './chart/artists/artists.component';
-import { TracksComponent } from './chart/tracks/tracks.component'
-import { ArtistProfileComponent } from './artist-profile/artist-profile.component';
-import { AlbumComponent } from './album/album.component';
-import { AlbumPageComponent } from './album-page/album-page.component';
+import { ArtistComponent } from './components/artist/artist.component';
+import { TrackComponent } from './components/track/track.component';
+import { ArtistsComponent } from './components/chart/artists/artists.component';
+import { TracksComponent } from './components/chart/tracks/tracks.component'
+import { ArtistProfileComponent } from './components/artist-profile/artist-profile.component';
+import { AlbumComponent } from './components/album/album.component';
+import { AlbumPageComponent } from './components/album-page/album-page.component';
 
 import { environment } from '../environments/environment';
 import { AngularFireModule } from 'angularfire2';
 
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
-import { UploadDialogComponent } from './track/upload-dialog/upload-dialog.component';
-import { DropZoneDirective } from './drop-zone.directive';
-import { PlayerComponent } from './player/player.component';
-import { FilteredArtistsComponent } from './filtered-artists/filtered-artists.component';
+import { UploadDialogComponent } from './components/track/upload-dialog/upload-dialog.component';
+import { DropZoneDirective } from './directives/drop-zone.directive';
+import { PlayerComponent } from './components/player/player.component';
+import { FilteredArtistsComponent } from './components/filtered-artists/filtered-artists.component';
 import { Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { FrameComponent } from './frame/frame.component';
+import { FrameComponent } from './components/frame/frame.component';
 
 import { SafePipe } from './pipes/safe-pipe.pipe';
 

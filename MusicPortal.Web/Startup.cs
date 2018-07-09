@@ -33,6 +33,7 @@ namespace MusicPortal.Web {
             services.AddScoped<IAlbumService, AlbumService>();
             services.AddScoped<ITrackService, TrackService>();
             services.AddSingleton(ctx => configMapper.CreateMapper());
+            services.AddSingleton(conf => Configuration);
 
             services.AddMvc();
 
@@ -61,11 +62,11 @@ namespace MusicPortal.Web {
 
             app.UseSpa(spa => {
                 spa.Options.SourcePath = "ClientApp";
-                //spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
 
-                if (env.IsDevelopment()) {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
+                //if (env.IsDevelopment()) {
+                //    spa.UseAngularCliServer(npmScript: "start");
+                //}
             });
         }
     }

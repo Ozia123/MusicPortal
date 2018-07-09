@@ -1,0 +1,3 @@
+<mat-progress-spinner mode="indeterminate" class="centered-spinner" *ngIf="isLoading"></mat-progress-spinner>
+
+<iframe [src]='pageUrl | safe' [ngStyle]="{ visibility: isLoading ? 'hidden' : 'visible' }"></iframe>

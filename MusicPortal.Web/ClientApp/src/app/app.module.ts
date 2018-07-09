@@ -1,12 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ApplicationRef, Injectable } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { FlexLayoutModule } from "@angular/flex-layout";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
@@ -48,6 +48,12 @@ import { UploadDialogComponent } from './track/upload-dialog/upload-dialog.compo
 import { DropZoneDirective } from './drop-zone.directive';
 import { PlayerComponent } from './player/player.component';
 import { FilteredArtistsComponent } from './filtered-artists/filtered-artists.component';
+import { Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { FrameComponent } from './frame/frame.component';
+
+import { SafePipe } from './pipes/safe-pipe.pipe';
+
 
 @NgModule({
   declarations: [
@@ -64,7 +70,9 @@ import { FilteredArtistsComponent } from './filtered-artists/filtered-artists.co
     UploadDialogComponent,
     DropZoneDirective,
     PlayerComponent,
-    FilteredArtistsComponent
+    FilteredArtistsComponent,
+    FrameComponent,
+    SafePipe
   ],
   entryComponents: [
     UploadDialogComponent
@@ -100,6 +108,7 @@ import { FilteredArtistsComponent } from './filtered-artists/filtered-artists.co
       { path: 'chart/tracks/:page', component: TracksComponent },
       { path: 'artist/:name', component: ArtistProfileComponent },
       { path: 'album/:name', component: AlbumPageComponent },
+      { path: 'about', component: FrameComponent },
       { path: '**', redirectTo: '' }
     ])
   ],
@@ -111,4 +120,6 @@ import { FilteredArtistsComponent } from './filtered-artists/filtered-artists.co
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule {
+}

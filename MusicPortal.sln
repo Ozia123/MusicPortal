@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicPortal.DAL", "MusicPor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicPortal.BLL", "MusicPortal.BLL\MusicPortal.BLL.csproj", "{7B180AD5-D885-4EDF-9048-60AEA527B1B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicPortal.BLL.UnitTests", "MusicPortal.BLL.UnitTests\MusicPortal.BLL.UnitTests.csproj", "{22E41109-A2CE-4EC5-984B-BF2850FB2159}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicPortal.BLL.UnitTests", "MusicPortal.BLL.UnitTests\MusicPortal.BLL.UnitTests.csproj", "{22E41109-A2CE-4EC5-984B-BF2850FB2159}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebForms", "WebForms", "{641F8E5E-687C-448F-81F4-361A415F9404}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicPortal.WebForms", "MusicPortal.WebForms\MusicPortal.WebForms.csproj", "{76F12825-F370-4C24-9ACA-40B56430C003}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +37,16 @@ Global
 		{22E41109-A2CE-4EC5-984B-BF2850FB2159}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22E41109-A2CE-4EC5-984B-BF2850FB2159}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22E41109-A2CE-4EC5-984B-BF2850FB2159}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76F12825-F370-4C24-9ACA-40B56430C003}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76F12825-F370-4C24-9ACA-40B56430C003}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76F12825-F370-4C24-9ACA-40B56430C003}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76F12825-F370-4C24-9ACA-40B56430C003}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{76F12825-F370-4C24-9ACA-40B56430C003} = {641F8E5E-687C-448F-81F4-361A415F9404}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D496BACC-098C-4C5F-A3DA-5A5D3D893FB7}

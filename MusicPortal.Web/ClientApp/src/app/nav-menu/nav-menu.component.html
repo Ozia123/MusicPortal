@@ -4,7 +4,7 @@
         <h4 class="after-icon-text">MusicPortal</h4>
     </button>
 
-    <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+    <div class="chart-block" fxLayout="row" fxShow="false" fxShow.gt-sm>
         <mat-menu x-position="before" #appMenu="matMenu">
             <button mat-menu-item routerLink="chart/artists/1">Top artists</button>
             <button mat-menu-item routerLink="chart/tracks/1">Top tracks</button>
@@ -14,4 +14,9 @@
             <h4 class="after-icon-text">Chart</h4>
         </button>
     </div>
+
+    <button mat-button routerLink="about">
+        <mat-icon>clear_all</mat-icon>
+        <h4 class="after-icon-text">About</h4>
+    </button>
 </mat-toolbar>

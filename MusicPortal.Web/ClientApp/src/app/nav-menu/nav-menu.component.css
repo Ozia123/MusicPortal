@@ -7,3 +7,8 @@
  .after-icon-text {
    display: inline-block;
  }
+
+ .chart-block {
+   width: 97px;
+   padding: 0 10px;
+ }

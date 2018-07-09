@@ -22,6 +22,11 @@ export class TrackService {
     return tracks;
   }
 
+  public async getCountOfTracks(): Promise<number> {
+    var object = (await this.http.get(this.baseUrl + HttpQueryStrings.getCountOfTracks, this.options).toPromise()).json();
+    return object.count;
+  }
+
   public async getTopArtistsTracks(artistName: string, page: number, itemsPerPage: number): Promise<TrackModel[]> {
     let tracks: TrackModel[] = (await this.http.get(this.baseUrl + HttpQueryStrings.getTopArtistsTracks + artistName + '/' + page + '/' + itemsPerPage, this.options).toPromise()).json();
     return tracks;

@@ -34,6 +34,7 @@ export class ArtistsComponent implements OnInit {
       this.artists = null;
       this.pageIndex = this.getPageIndex();
       this.pageSize = this.getPageSize();
+      this.getPagination();
       this.getArtists();
     });
   }
@@ -51,6 +52,18 @@ export class ArtistsComponent implements OnInit {
       return 20;
     }
     return Number(pageSizeStr) || 20;
+  }
+
+  async getPagination() {
+    let artistsCountStr = localStorage.getItem('artistsCount');
+
+    if (!artistsCountStr) {
+      this.length = await this.artistService.getCountOfArtists();
+    }
+    else {
+      this.length = Number(artistsCountStr) || 100;
+    }
+    localStorage.setItem('artistsCount', this.length.toString());
   }
 
   async getArtists() {

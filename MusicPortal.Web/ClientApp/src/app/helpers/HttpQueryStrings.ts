@@ -8,4 +8,6 @@ export class HttpQueryStrings {
     public static getTopArtistsTracks: string = 'api/artist/top-tracks/';
     public static getTopTracks: string = 'api/chart/tracks/';
     public static updateTrack: string = 'api/track/update';
+    public static getCountOfArtists: string = 'api/chart/pagination-artists-count';
+    public static getCountOfTracks: string = 'api/chart/pagination-tracks-count';
 }

@@ -28,11 +28,12 @@ export class TracksComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private trackService: TrackService) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.route.params.subscribe(params => {
       this.tracks = null;
       this.pageIndex = this.getPageIndex();
       this.pageSize = this.getPageSize();
+      this.getPagination();
       this.getTracks();
     });
   }
@@ -50,6 +51,18 @@ export class TracksComponent implements OnInit {
       return 20;
     }
     return Number(pageSizeStr) || 20;
+  }
+
+  async getPagination() {
+    let tracksCountStr = localStorage.getItem('tracksCount');
+
+    if (!tracksCountStr) {
+      this.length = await this.trackService.getCountOfTracks();
+    }
+    else {
+      this.length = Number(tracksCountStr) || 100;
+    }
+    localStorage.setItem('tracksCount', this.length.toString());
   }
 
   async getTracks() {

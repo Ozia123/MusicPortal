@@ -22,6 +22,11 @@ export class ArtistService {
     return artists;
   }
 
+  public async getCountOfArtists(): Promise<number> {
+    var object = (await this.http.get(this.baseUrl + HttpQueryStrings.getCountOfArtists, this.options).toPromise()).json();
+    return object.count;
+  }
+
   public async getFullInfoArtist(name: string): Promise<ArtistModel> {
     let artist: ArtistModel = (await this.http.get(this.baseUrl + HttpQueryStrings.getFullInfoArtist + name, this.options).toPromise()).json();
     return artist;

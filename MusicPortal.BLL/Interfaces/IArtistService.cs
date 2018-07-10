@@ -14,5 +14,7 @@ namespace MusicPortal.BLL.Interfaces {
         Task<List<ArtistViewModel>> GetTopArtists(int page, int itemsPerPage);
 
         Task<List<ArtistViewModel>> GetSimilarArtists(string name);
+
+        Task<Artist> GetArtistFromDatabaseOrIfNotFoundFromLastFmByName(string name);
     }
 }

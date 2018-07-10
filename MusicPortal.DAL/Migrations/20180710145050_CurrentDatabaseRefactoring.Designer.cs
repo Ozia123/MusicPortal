@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MusicPortal.DAL.EF;
 
 namespace MusicPortal.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20180710145050_CurrentDatabaseRefactoring")]
+    partial class CurrentDatabaseRefactoring
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,7 +67,8 @@ namespace MusicPortal.DAL.Migrations
 
                     b.Property<string>("AlbumId");
 
-                    b.Property<string>("ArtistId");
+                    b.Property<string>("ArtistId")
+                        .ValueGeneratedOnAddOrUpdate();
 
                     b.Property<string>("CloudURL");
 

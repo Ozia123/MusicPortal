@@ -13,11 +13,13 @@ namespace MusicPortal.BLL.Services {
         private readonly IUnitOfWork database;
         private readonly IMapper mapper;
         private readonly IMusicPortalClient musicPortalClient;
+        private readonly IArtistService artistService;
 
-        public TrackService(IUnitOfWork unitOfWork, IMusicPortalClient musicPortalClient, IMapper mapper) {
+        public TrackService(IUnitOfWork unitOfWork, IMusicPortalClient musicPortalClient, IMapper mapper, IArtistService artistService) {
             database = unitOfWork;
             this.mapper = mapper;
             this.musicPortalClient = musicPortalClient;
+            this.artistService = artistService;
         }
 
         public IQueryable<Track> Query() {
@@ -42,7 +44,7 @@ namespace MusicPortal.BLL.Services {
         }
 
         public async Task<TrackViewModel> Delete(string id) {
-            Track track = await database.TrackRepository.Delete(id);
+            Track track = await database.TrackRepository.Remove(id);
             return mapper.Map<Track, TrackViewModel>(track);
         }
 
@@ -56,8 +58,8 @@ namespace MusicPortal.BLL.Services {
             return await GetTracksFromDatabaseAndAddIfNeeded(tracks);
         }
 
-        public List<TrackViewModel> GetAlbumTracks(string albumName) {
-            Album album = database.AlbumRepository.GetByName(albumName);
+        public async Task<List<TrackViewModel>> GetAlbumTracks(string albumName) {
+            Album album = await database.AlbumRepository.GetByName(albumName);
             if (album == null) {
                 return null;
             }
@@ -79,24 +81,43 @@ namespace MusicPortal.BLL.Services {
         }
 
         private async Task<List<TrackViewModel>> GetTracksFromDatabaseAndAddIfNeeded(List<TrackViewModel> tracks) {
-            foreach (var track in tracks) {
-                Track trackFromDb = await GetTrackFromDatabaseOrCreateAndGet(track);
-                track.TrackId = trackFromDb.TrackId;
-                track.CloudURL = trackFromDb.CloudURL;
+            List<Track> tracksFromDb = new List<Track>();
+            var grouppedByArtist = tracks.GroupBy(x => x.ArtistName);
+
+            foreach (var artistTracks in grouppedByArtist) {
+                var artist = await artistService.GetArtistFromDatabaseOrIfNotFoundFromLastFmByName(artistTracks.Key);
+                var tracksToCheck = artistTracks.Select(track => { track.ArtistId = artist.ArtistId; return track; }).ToList();
+                tracksFromDb.AddRange(await GetTracksFromDatabaseOrCreateIfNeeded(tracksToCheck));
             }
-            return tracks;
+            
+            return mapper.Map<List<TrackViewModel>>(tracksFromDb.OrderByDescending(x => x.Rank).ToList());
         }
 
-        private async Task<Track> GetTrackFromDatabaseOrCreateAndGet(TrackViewModel track) {
-            Track trackFromDb = database.TrackRepository.GetByName(track.Name);
+        private async Task<List<Track>> GetTracksFromDatabaseOrCreateIfNeeded(List<TrackViewModel> tracks) {
+            List<Track> tracksFromDb = new List<Track>();
+
+            foreach (var track in tracks) {
+                Track trackFromDb = await database.TrackRepository.GetByName(track.Name);
+                if (trackFromDb == null) {
+                    trackFromDb = await database.TrackRepository.Create(mapper.Map<TrackViewModel, Track>(track));
+                }
+                tracksFromDb.Add(trackFromDb);
+            }
+
+            return tracksFromDb;
+        }
+
+        private async Task<string> GetTrackIdFromDatabaseOrCreateAndGet(TrackViewModel track) {
+            Track trackFromDb = await database.TrackRepository.GetByName(track.Name);
             if (trackFromDb == null) {
+                
                 trackFromDb = await database.TrackRepository.Create(mapper.Map<TrackViewModel, Track>(track));
             }
-            return trackFromDb;
+            return trackFromDb.TrackId;
         }
 
         private async Task<TrackViewModel> UpdateTrackInDatabaseOrCreateIfNeeded(TrackViewModel track) {
-            Track trackFromDb = database.TrackRepository.GetByName(track.Name);
+            Track trackFromDb = await database.TrackRepository.GetByName(track.Name);
             if (trackFromDb == null) {
                 trackFromDb = await database.TrackRepository.Create(mapper.Map<TrackViewModel, Track>(track));
                 return mapper.Map<Track, TrackViewModel>(trackFromDb);
@@ -105,7 +126,7 @@ namespace MusicPortal.BLL.Services {
             return await UpdateIfNeeded(trackFromDb, track.CloudURL);
         }
 
-        private async Task<TrackViewModel> UpdateIfNeeded(Track trackFromDb, string cloudURL) {
+        public async Task<TrackViewModel> UpdateIfNeeded(Track trackFromDb, string cloudURL) {
             if (string.IsNullOrEmpty(trackFromDb.CloudURL)) {
                 trackFromDb.CloudURL = cloudURL;
                 await database.TrackRepository.Update(trackFromDb);

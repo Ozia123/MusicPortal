@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-using MusicPortal.DAL.Entities;
+﻿using MusicPortal.DAL.Entities;
+using System.Threading.Tasks;
 
 namespace MusicPortal.DAL.Interfaces {
     public interface IArtistRepository : IRepository<Artist, string> {
-        IEnumerable<Artist> AddRange(List<Artist> items);
-        List<Artist> GetAll();
-        Artist GetByName(string name);
-        string GetIdByName(string name);
-        List<Artist> GetRange(int startIndex, int numberOfItems);
+        Task<string> GetIdByName(string name);
+
+        Task<Artist> GetByName(string name);
     }
 }

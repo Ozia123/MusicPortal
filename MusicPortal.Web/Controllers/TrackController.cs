@@ -45,8 +45,8 @@ namespace MusicPortal.Web.Controllers {
 
         [HttpGet]
         [Route("api/album-tracks/{albumName}")]
-        public IActionResult GetAlbumTracks([Required]string albumName) {
-            List<TrackViewModel> tracks = trackService.GetAlbumTracks(albumName);
+        public async Task<IActionResult> GetAlbumTracks([Required]string albumName) {
+            List<TrackViewModel> tracks = await trackService.GetAlbumTracks(albumName);
             if (tracks == null) {
                 return BadRequest("tracks not found in database");
             }

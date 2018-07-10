@@ -30,7 +30,7 @@ namespace MusicPortal.BLL.Services {
         }
 
         public async Task<AlbumViewModel> GetByName(string name) {
-            Album album = database.AlbumRepository.GetByName(name);
+            Album album = await database.AlbumRepository.GetByName(name);
             AlbumViewModel albumDto = mapper.Map<Album, AlbumViewModel>(album);
             return await GetFullInfoDto(albumDto);
         }
@@ -48,7 +48,7 @@ namespace MusicPortal.BLL.Services {
         }
 
         public async Task<AlbumViewModel> Delete(string id) {
-            Album album = await database.AlbumRepository.Delete(id);
+            Album album = await database.AlbumRepository.Remove(id);
             return mapper.Map<Album, AlbumViewModel>(album);
         }
 
@@ -71,7 +71,7 @@ namespace MusicPortal.BLL.Services {
         }
 
         private async Task AddAlbumsToDatabaseIfNeeded(List<AlbumViewModel> albums, string artistName) {
-            string artistId = database.ArtistRepository.GetIdByName(artistName);
+            string artistId = await database.ArtistRepository.GetIdByName(artistName);
             IEnumerable<AlbumViewModel> albumsToAdd = GetAlbumsWhichNotInDatabase(albums);
             await CollectInfoAboutAlbumsAndAddItAllToDatabase(albumsToAdd, artistId, artistName);
         }

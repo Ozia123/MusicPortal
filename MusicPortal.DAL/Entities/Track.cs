@@ -4,8 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace MusicPortal.DAL.Entities {
     public class Track {
         [Key]
+        [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string TrackId { get; set; }
+        
+        public string ArtistId { get; set; }
+
+        public string AlbumId { get; set; }
 
         public string Name { get; set; }
 
@@ -16,9 +21,9 @@ namespace MusicPortal.DAL.Entities {
         public string TrackURL { get; set; }
 
         public string CloudURL { get; set; }
+        
+        public virtual Artist Artist { get; set; }
 
-        public string AlbumId { get; set; }
-
-        public Album Album { get; set; }
+        public virtual Album Album { get; set; }
     }
 }

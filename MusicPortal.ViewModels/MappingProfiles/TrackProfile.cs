@@ -9,7 +9,10 @@ namespace MusicPortal.ViewModels.MappingProfiles {
 
         public TrackProfile() {
             CreateMap<TrackViewModel, Track>()
-               .ReverseMap();
+                .ForMember(x => x.ArtistId, y => y.MapFrom(z => z.ArtistId));
+            
+            CreateMap<Track, TrackViewModel>()
+                .ForMember(x => x.ArtistName, y => y.MapFrom(z => z.Artist.Name));
 
             CreateMap<LastTrack, TrackViewModel>()
                 .ForMember(x => x.Rank, y => y.MapFrom(z => z.Rank ?? 0))

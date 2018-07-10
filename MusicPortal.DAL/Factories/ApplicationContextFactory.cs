@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using MusicPortal.DAL.EF;
-using MusicPortal.DAL.Helpers;
 
 namespace MusicPortal.DAL.Factories {
     public static class ApplicationContextFactory {

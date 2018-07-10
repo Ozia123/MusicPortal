@@ -21,5 +21,7 @@ namespace MusicPortal.ViewModels.ViewModels {
         public string AlbumName { get; set; }
 
         public string AlbumId { get; set; }
+
+        public string ArtistId { get; set; }
     }
 }

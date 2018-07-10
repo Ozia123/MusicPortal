@@ -6,7 +6,9 @@ namespace MusicPortal.DAL.Interfaces {
         ApplicationContext Context { get; }
 
         IArtistRepository ArtistRepository { get; }
+
         IAlbumRepository AlbumRepository { get; }
+
         ITrackRepository TrackRepository { get; }
 
         Task SaveAsync();

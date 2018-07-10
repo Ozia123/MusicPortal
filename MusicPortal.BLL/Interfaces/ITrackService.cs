@@ -9,7 +9,7 @@ namespace MusicPortal.BLL.Interfaces {
     public interface ITrackService : IService<TrackViewModel, string> {
         IQueryable<Track> Query();
 
-        List<TrackViewModel> GetAlbumTracks(string albumName);
+        Task<List<TrackViewModel>> GetAlbumTracks(string albumName);
 
         Task<List<TrackViewModel>> GetTopTracks(int page, int itemsPerPage);
 

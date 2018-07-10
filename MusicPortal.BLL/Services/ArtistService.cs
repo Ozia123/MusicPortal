@@ -30,12 +30,7 @@ namespace MusicPortal.BLL.Services {
         }
 
         public async Task<ArtistViewModel> GetByName(string name) {
-            Artist artist = database.ArtistRepository.GetByName(name);
-
-            if (artist == null) {
-                return await TryToGetArtistFromLastFm(name);
-            }
-
+            var artist = await GetArtistFromDatabaseOrIfNotFoundFromLastFmByName(name);
             return mapper.Map<Artist, ArtistViewModel>(artist);
         }
 
@@ -52,7 +47,7 @@ namespace MusicPortal.BLL.Services {
         }
 
         public async Task<ArtistViewModel> Delete(string id) {
-            Artist artist = await database.ArtistRepository.Delete(id);
+            Artist artist = await database.ArtistRepository.Remove(id);
             return mapper.Map<Artist, ArtistViewModel>(artist);
         }
 
@@ -67,6 +62,16 @@ namespace MusicPortal.BLL.Services {
             List<ArtistViewModel> artists = await musicPortalClient.GetSimilarArtists(name);
             await GetFullInfoAndAddToDatabaseIfNeeded(artists);
             return artists;
+        }
+        
+        public async Task<Artist> GetArtistFromDatabaseOrIfNotFoundFromLastFmByName(string name) {
+            Artist artist = await database.ArtistRepository.GetByName(name);
+
+            if (artist == null) {
+                var artistFromLastFm = await TryToGetArtistFromLastFm(name);
+                artist = await database.ArtistRepository.Create(mapper.Map<Artist>(artistFromLastFm));
+            }
+            return artist;
         }
 
         private IEnumerable<ArtistViewModel> GetArtistsWhichNotInDatabase(IEnumerable<ArtistViewModel> artists) {

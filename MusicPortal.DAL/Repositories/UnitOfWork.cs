@@ -4,30 +4,23 @@ using MusicPortal.DAL.Interfaces;
 
 namespace MusicPortal.DAL.Repositories {
     public class UnitOfWork : IUnitOfWork {
-        private readonly ApplicationContext _context;
-
-        private readonly IArtistRepository _artistRepository;
-        private readonly IAlbumRepository _albumRepository;
-        private readonly ITrackRepository _trackRepository;
-
         public UnitOfWork(ApplicationContext context) {
-            _context = context;
-
-            _artistRepository = new ArtistRepository(_context);
-            _albumRepository = new AlbumRepository(_context);
-            _trackRepository = new TrackRepository(_context);
+            Context = context;
+            ArtistRepository = new ArtistRepository(context);
+            AlbumRepository = new AlbumRepository(context);
+            TrackRepository = new TrackRepository(context);
         }
 
-        public ApplicationContext Context => _context;
+        public ApplicationContext Context { get; private set; }
 
-        public IArtistRepository ArtistRepository => _artistRepository;
+        public IArtistRepository ArtistRepository { get; private set; } 
 
-        public IAlbumRepository AlbumRepository => _albumRepository;
+        public IAlbumRepository AlbumRepository { get; private set; }
 
-        public ITrackRepository TrackRepository => _trackRepository;
+        public ITrackRepository TrackRepository { get; private set; }
 
         public async Task SaveAsync() {
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
         }
     }
 }

@@ -15,10 +15,16 @@ namespace MusicPortal.DAL.Interfaces {
         Task<TEntity> Create(TEntity item);
 
         Task<TEntity> Update(TEntity item);
+        
+        Task<TEntity> Remove(TKey id);
+
+        IEnumerable<TEntity> GetRange(int startIndex, int numberOfItems);
+
+        Task<IEnumerable<TEntity>> AddRange(IEnumerable<TEntity> items);
 
         Task<IEnumerable<TEntity>> UpdateRange(IEnumerable<TEntity> items);
 
-        Task<TEntity> Delete(TKey id);
+        Task<IEnumerable<TEntity>> RemoveRange(IEnumerable<TKey> ids);
 
         IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties);
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MusicPortal.DAL.Entities;
+using System;
 
 namespace MusicPortal.DAL.EF {
     public class ApplicationContext : DbContext {
@@ -11,5 +12,8 @@ namespace MusicPortal.DAL.EF {
         public DbSet<Album> Albums { get; set; }
 
         public DbSet<Track> Tracks { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {   
+        }
     }
 }

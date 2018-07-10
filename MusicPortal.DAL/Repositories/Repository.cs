@@ -25,18 +25,12 @@ namespace MusicPortal.DAL.Repositories {
             return _dbSet.Where(predicate).ToList();
         }
 
-        public Task<TEntity> GetById(TKey id) {
-            return _dbSet.FindAsync(id);
+        public async Task<TEntity> GetById(TKey id) {
+            return await _dbSet.FindAsync(id);
         }
 
         public async Task<TEntity> Create(TEntity item) {
-            TEntity entity = _dbSet.Add(item).Entity;
-            await _context.SaveChangesAsync();
-            return entity;
-        }
-
-        public async Task<TEntity> Delete(TKey id) {
-            TEntity entity = _dbSet.Remove(_dbSet.Find(id)).Entity;
+            TEntity entity = (await _dbSet.AddAsync(item)).Entity;
             await _context.SaveChangesAsync();
             return entity;
         }
@@ -47,10 +41,33 @@ namespace MusicPortal.DAL.Repositories {
             return entity;
         }
 
+        public async Task<TEntity> Remove(TKey id) {
+            TEntity entity = _dbSet.Remove(_dbSet.Find(id)).Entity;
+            await _context.SaveChangesAsync();
+            return entity;
+        }
+
+        public IEnumerable<TEntity> GetRange(int startIndex, int numberOfItems) {
+            return _dbSet.Skip(startIndex).Take(numberOfItems);
+        }
+
+        public async Task<IEnumerable<TEntity>> AddRange(IEnumerable<TEntity> items) {
+            await _dbSet.AddRangeAsync(items);
+            await _context.SaveChangesAsync();
+            return items;
+        }
+
         public async Task<IEnumerable<TEntity>> UpdateRange(IEnumerable<TEntity> items) {
             _dbSet.UpdateRange(items);
             await _context.SaveChangesAsync();
             return items;
+        }
+
+        public async Task<IEnumerable<TEntity>> RemoveRange(IEnumerable<TKey> ids) {
+            var entitiesToRemove = ids.Select(id => Task.Run(() => _dbSet.FindAsync(id)).Result);
+            _dbSet.RemoveRange(entitiesToRemove);
+            await _context.SaveChangesAsync();
+            return entitiesToRemove;
         }
 
         public IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties) {

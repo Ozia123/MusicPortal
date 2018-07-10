@@ -29,12 +29,7 @@ namespace MusicPortal.Facade.Helpers {
         }
 
         private List<LastTrack> CompareTracksWithPreviousPageResult(List<LastTrack> tracks, List<LastTrack> previousPageResult) {
-            bool isSameDataFound = previousPageResult.Exists(t => tracks.Select(lt => lt.Name).Contains(t.Name));
-
-            if (isSameDataFound) {
-                return new List<LastTrack>();
-            }
-            return tracks;
+            return tracks.Where(t => !previousPageResult.Select(pt => pt.Name).Contains(t.Name)).ToList();
         }
 
         private List<LastAlbum> CompareAlbumsWithPreviousPageResult(List<LastAlbum> albums, List<LastAlbum> previousPageResult) {

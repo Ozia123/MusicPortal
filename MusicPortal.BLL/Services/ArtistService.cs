@@ -7,6 +7,7 @@ using AutoMapper;
 using MusicPortal.DAL.Interfaces;
 using MusicPortal.ViewModels.ViewModels;
 using MusicPortal.Facade.Interfaces;
+using System;
 
 namespace MusicPortal.BLL.Services {
     public class ArtistService : IArtistService {
@@ -65,10 +66,10 @@ namespace MusicPortal.BLL.Services {
         }
         
         public async Task<Artist> GetArtistFromDatabaseOrIfNotFoundFromLastFmByName(string name) {
-            Artist artist = await database.ArtistRepository.GetByName(name);
+            var artist = await database.ArtistRepository.GetByName(name);
 
             if (artist == null) {
-                var artistFromLastFm = await TryToGetArtistFromLastFm(name);
+                var artistFromLastFm = await musicPortalClient.GetFullInfoArtist(name);
                 artist = await database.ArtistRepository.Create(mapper.Map<Artist>(artistFromLastFm));
             }
             return artist;

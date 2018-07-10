@@ -14,7 +14,7 @@ namespace MusicPortal.ViewModels.MappingProfiles {
                .ReverseMap();
 
             CreateMap<LastAlbum, AlbumViewModel>()
-                .ForMember(x => x.PictureURL, y => y.MapFrom(z => z.Images.Large.AbsoluteUri ?? defaultImageUrl))
+                .ForMember(x => x.PictureURL, y => y.MapFrom(z => string.IsNullOrEmpty(z.Images.Large.AbsoluteUri) ? defaultImageUrl : z.Images.Large.AbsoluteUri))
                 .ForMember(x => x.PlayCount, y => y.MapFrom(z => z.PlayCount ?? 0))
                 .ForMember(x => x.ReleaseDate, y => y.MapFrom(z => z.ReleaseDateUtc ?? DateTime.UtcNow))
                 .ForMember(x => x.ArtistName, y => y.MapFrom(z => z.ArtistName))

@@ -59,7 +59,7 @@ namespace MusicPortal.Facade.Facades {
 
         public async Task<List<AlbumViewModel>> GetTopArtistsAlbums(string name, int page = 1, int itemsPerPage = 20) {
             var response = await client.Artist.GetTopAlbumsAsync(name, false, page, itemsPerPage);
-            var albums = await resultFilter.GetFilteredTopArtistsAlbums(response.Select(a => a).ToList(), name, page, itemsPerPage);
+            var albums = await resultFilter.GetFilteredTopArtistsAlbums(response.Where(x => x.Name != "(null)").ToList(), name, page, itemsPerPage);
 
             return mapper.Map<List<AlbumViewModel>>(albums);
         }

@@ -8,47 +8,20 @@ using MusicPortal.DAL.Interfaces;
 using MusicPortal.ViewModels.ViewModels;
 using MusicPortal.Facade.Interfaces;
 using System;
+using MusicPortal.BLL.Base.Implementation;
 
 namespace MusicPortal.BLL.Services {
-    public class ArtistService : IArtistService {
-        private readonly IUnitOfWork database;
-        private readonly IMapper mapper;
+    public class ArtistService : Service<ArtistViewModel, Artist, string>, IArtistService {
         private readonly IMusicPortalClient musicPortalClient;
 
-        public ArtistService(IUnitOfWork unitOfWork, IMusicPortalClient musicPortalClient, IMapper mapper) {
-            database = unitOfWork;
-            this.mapper = mapper;
+        public ArtistService(IUnitOfWork unitOfWork, IMusicPortalClient musicPortalClient, IMapper mapper)
+            : base(mapper, unitOfWork)
+        {
             this.musicPortalClient = musicPortalClient;
-        }
-
-        public IQueryable<Artist> Query() {
-            return database.ArtistRepository.Query();
-        }
-
-        public async Task<ArtistViewModel> GetById(string id) {
-            Artist artist = await database.ArtistRepository.GetById(id);
-            return mapper.Map<Artist, ArtistViewModel>(artist);
         }
 
         public async Task<ArtistViewModel> GetByName(string name) {
             var artist = await GetArtistFromDatabaseOrIfNotFoundFromLastFmByName(name);
-            return mapper.Map<Artist, ArtistViewModel>(artist);
-        }
-
-        public async Task<ArtistViewModel> Create(ArtistViewModel item) {
-            Artist artist = mapper.Map<ArtistViewModel, Artist>(item);
-            artist = await database.ArtistRepository.Create(artist);
-            return mapper.Map<Artist, ArtistViewModel>(artist);
-        }
-
-        public async Task<ArtistViewModel> Update(ArtistViewModel item) {
-            Artist artist = mapper.Map<ArtistViewModel, Artist>(item);
-            artist = await database.ArtistRepository.Update(artist);
-            return mapper.Map<Artist, ArtistViewModel>(artist);
-        }
-
-        public async Task<ArtistViewModel> Delete(string id) {
-            Artist artist = await database.ArtistRepository.Remove(id);
             return mapper.Map<Artist, ArtistViewModel>(artist);
         }
 

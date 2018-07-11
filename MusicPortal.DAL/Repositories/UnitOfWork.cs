@@ -19,6 +19,10 @@ namespace MusicPortal.DAL.Repositories {
 
         public ITrackRepository TrackRepository { get; private set; }
 
+        public IRepository<TEntity, TKey> GetRepository<TEntity, TKey>() where TEntity : class {
+            return new Repository<TEntity, TKey>(Context);
+        } 
+
         public async Task SaveAsync() {
             await Context.SaveChangesAsync();
         }

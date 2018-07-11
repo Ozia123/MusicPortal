@@ -7,49 +7,22 @@ using MusicPortal.DAL.Interfaces;
 using System.Collections.Generic;
 using MusicPortal.ViewModels.ViewModels;
 using MusicPortal.Facade.Interfaces;
+using MusicPortal.BLL.Base.Implementation;
 
 namespace MusicPortal.BLL.Services {
-    public class AlbumService : IAlbumService {
-        private readonly IUnitOfWork database;
-        private readonly IMapper mapper;
+    public class AlbumService : Service<AlbumViewModel, Album, string>, IAlbumService {
         private readonly IMusicPortalClient musicPortalClient;
 
-        public AlbumService(IUnitOfWork unitOfWork, IMusicPortalClient musicPortalClient, IMapper mapper) {
-            database = unitOfWork;
+        public AlbumService(IUnitOfWork unitOfWork, IMusicPortalClient musicPortalClient, IMapper mapper) 
+            : base(mapper, unitOfWork) 
+        {
             this.musicPortalClient = musicPortalClient;
-            this.mapper = mapper;
-        }
-
-        public IQueryable<Album> Query() {
-            return database.AlbumRepository.Query();
-        }
-
-        public async Task<AlbumViewModel> GetById(string id) {
-            Album album = await database.AlbumRepository.GetById(id);
-            return mapper.Map<Album, AlbumViewModel>(album);
         }
 
         public async Task<AlbumViewModel> GetByName(string name) {
             Album album = await database.AlbumRepository.GetByName(name);
             AlbumViewModel albumDto = mapper.Map<Album, AlbumViewModel>(album);
             return await GetFullInfoDto(albumDto);
-        }
-
-        public async Task<AlbumViewModel> Create(AlbumViewModel item) {
-            Album album = mapper.Map<AlbumViewModel, Album>(item);
-            album = await database.AlbumRepository.Create(album);
-            return mapper.Map<Album, AlbumViewModel>(album);
-        }
-
-        public async Task<AlbumViewModel> Update(AlbumViewModel item) {
-            Album album = mapper.Map<AlbumViewModel, Album>(item);
-            album = await database.AlbumRepository.Update(album);
-            return mapper.Map<Album, AlbumViewModel>(album);
-        }
-
-        public async Task<AlbumViewModel> Delete(string id) {
-            Album album = await database.AlbumRepository.Remove(id);
-            return mapper.Map<Album, AlbumViewModel>(album);
         }
 
         public async Task<List<AlbumViewModel>> GetTopArtistsAlbums(string name, int page, int itemsPerPage = 20) {

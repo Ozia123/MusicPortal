@@ -7,45 +7,18 @@ using AutoMapper;
 using MusicPortal.DAL.Interfaces;
 using MusicPortal.ViewModels.ViewModels;
 using MusicPortal.Facade.Interfaces;
+using MusicPortal.BLL.Base.Implementation;
 
 namespace MusicPortal.BLL.Services {
-    public class TrackService : ITrackService {
-        private readonly IUnitOfWork database;
-        private readonly IMapper mapper;
+    public class TrackService : Service<TrackViewModel, Track, string>, ITrackService {
         private readonly IMusicPortalClient musicPortalClient;
         private readonly IArtistService artistService;
 
-        public TrackService(IUnitOfWork unitOfWork, IMusicPortalClient musicPortalClient, IMapper mapper, IArtistService artistService) {
-            database = unitOfWork;
-            this.mapper = mapper;
+        public TrackService(IUnitOfWork unitOfWork, IMusicPortalClient musicPortalClient, IMapper mapper, IArtistService artistService)
+            : base(mapper, unitOfWork)
+        {
             this.musicPortalClient = musicPortalClient;
             this.artistService = artistService;
-        }
-
-        public IQueryable<Track> Query() {
-            return database.TrackRepository.Query();
-        }
-
-        public async Task<TrackViewModel> GetById(string id) {
-            Track track = await database.TrackRepository.GetById(id);
-            return mapper.Map<Track, TrackViewModel>(track);
-        }
-
-        public async Task<TrackViewModel> Create(TrackViewModel item) {
-            Track track = mapper.Map<TrackViewModel, Track>(item);
-            track = await database.TrackRepository.Create(track);
-            return mapper.Map<Track, TrackViewModel>(track);
-        }
-
-        public async Task<TrackViewModel> Update(TrackViewModel item) {
-            Track track = mapper.Map<TrackViewModel, Track>(item);
-            track = await database.TrackRepository.Update(track);
-            return mapper.Map<Track, TrackViewModel>(track);
-        }
-
-        public async Task<TrackViewModel> Delete(string id) {
-            Track track = await database.TrackRepository.Remove(id);
-            return mapper.Map<Track, TrackViewModel>(track);
         }
 
         public async Task<List<TrackViewModel>> GetTopTracks(int page, int itemsPerPage) {

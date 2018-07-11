@@ -1,14 +1,11 @@
-﻿using MusicPortal.BLL.Base;
+﻿using MusicPortal.BLL.Base.Abstraction;
 using MusicPortal.DAL.Entities;
 using MusicPortal.ViewModels.ViewModels;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MusicPortal.BLL.Interfaces {
-    public interface ITrackService : IService<TrackViewModel, string> {
-        IQueryable<Track> Query();
-
+    public interface ITrackService : IService<TrackViewModel, Track, string> {
         Task<List<TrackViewModel>> GetAlbumTracks(string albumName);
 
         Task<List<TrackViewModel>> GetTopTracks(int page, int itemsPerPage);

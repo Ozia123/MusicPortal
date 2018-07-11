@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="7.0.1" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="7.6.104" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.1.1" />
@@ -30,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MusicPortal.Auth\MusicPortal.Auth.csproj" />
     <ProjectReference Include="..\MusicPortal.BLL\MusicPortal.BLL.csproj" />
     <ProjectReference Include="..\MusicPortal.DAL\MusicPortal.DAL.csproj" />
     <ProjectReference Include="..\MusicPortal.Facade\MusicPortal.Facade.csproj" />

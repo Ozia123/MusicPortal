@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 
 import { ArtistModel } from '../../models/ArtistModel';
-import { HttpQueryStrings } from '../../helpers/HttpQueryStrings';
+import { ApiRoutes } from '../../helpers/ApiRoutes';
 
 @Injectable()
 export class ArtistService {
@@ -18,27 +18,22 @@ export class ArtistService {
   };
 
   public async getTopArtists(page: number, itemsPerPage: number): Promise<ArtistModel[]> {
-    let artists: ArtistModel[] = (await this.http.get(this.baseUrl + HttpQueryStrings.getTopArtists + page + '/' + itemsPerPage, this.options).toPromise()).json();
+    let artists: ArtistModel[] = (await this.http.get(this.baseUrl + ApiRoutes.getTopArtists + page + '/' + itemsPerPage, this.options).toPromise()).json();
     return artists;
   }
 
   public async getCountOfArtists(): Promise<number> {
-    var object = (await this.http.get(this.baseUrl + HttpQueryStrings.getCountOfArtists, this.options).toPromise()).json();
+    var object = (await this.http.get(this.baseUrl + ApiRoutes.getCountOfArtists, this.options).toPromise()).json();
     return object.count;
   }
 
   public async getFullInfoArtist(name: string): Promise<ArtistModel> {
-    let artist: ArtistModel = (await this.http.get(this.baseUrl + HttpQueryStrings.getFullInfoArtist + name, this.options).toPromise()).json();
+    let artist: ArtistModel = (await this.http.get(this.baseUrl + ApiRoutes.getFullInfoArtist + name, this.options).toPromise()).json();
     return artist;
   }
 
   public async getSimilarArtists(name: string): Promise<ArtistModel[]> {
-    let artists: ArtistModel[] = (await this.http.get(this.baseUrl + HttpQueryStrings.getSimilarArtists + name, this.options).toPromise()).json();
-    return artists;
-  }
-
-  public async getFilteredArtists(): Promise<ArtistModel[]> {
-    let artists: ArtistModel[] = (await this.http.get(this.baseUrl + 'api/artist/filtered-artists' + name, this.options).toPromise()).json();
+    let artists: ArtistModel[] = (await this.http.get(this.baseUrl + ApiRoutes.getSimilarArtists + name, this.options).toPromise()).json();
     return artists;
   }
 }

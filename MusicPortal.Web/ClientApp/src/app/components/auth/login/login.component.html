@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-md-6">
+    <h2>Login with your MusicPortal account</h2>
+  </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+      <form #f="ngForm" novalidate (ngSubmit)="login(f)">
+        
+        <div *ngIf="errors" class="alert alert-danger" role="alert">
+          <strong>Oops!</strong> {{errors}}
+        </div>
+        
+        <mat-form-field class="form-group full-width">
+          <input 
+            matInput 
+            placeholder="Email" 
+            [formControl]="emailFormControl"
+            name="email"
+            ngModel>
+        </mat-form-field>
+  
+        <mat-form-field class="form-group full-width">
+          <input 
+            type="password" 
+            matInput 
+            placeholder="Password"
+            [formControl]="passwordFormControl" 
+            name="password"
+            ngModel>
+        </mat-form-field>
+  
+        <div class="form-group">
+          <button
+            type="submit" 
+            class="sign-up-button" 
+            [disabled]="f.invalid || isRequesting" 
+            mat-raised-button color="primary"
+            *ngIf="!isRequesting">
+            Login
+          </button>
+          <mat-progress-spinner *ngIf="isRequesting" mode="indeterminate" class="sign-up-button" [diameter]="30"></mat-progress-spinner>
+        </div>
+  
+      </form>
+    </div>
+  </div>

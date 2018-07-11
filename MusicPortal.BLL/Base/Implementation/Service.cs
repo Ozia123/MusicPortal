@@ -27,19 +27,19 @@ namespace MusicPortal.BLL.Base.Implementation {
             return mapper.Map<TEntity, TViewModel>(entity);
         }
 
-        public async Task<TViewModel> Create(TViewModel item) {
+        public virtual async Task<TViewModel> Create(TViewModel item) {
             var entity = mapper.Map<TViewModel, TEntity>(item);
             entity = await database.GetRepository<TEntity, TKey>().Create(entity);
             return mapper.Map<TEntity, TViewModel>(entity);
         }
 
-        public async Task<TViewModel> Update(TViewModel item) {
+        public virtual async Task<TViewModel> Update(TViewModel item) {
             var entity = mapper.Map<TViewModel, TEntity>(item);
             entity = await database.GetRepository<TEntity, TKey>().Update(entity);
             return mapper.Map<TEntity, TViewModel>(entity);
         }
 
-        public async Task<TViewModel> Delete(TKey id) {
+        public virtual async Task<TViewModel> Delete(TKey id) {
             var entity = await database.GetRepository<TEntity, TKey>().Remove(id);
             return mapper.Map<TEntity, TViewModel>(entity);
         }

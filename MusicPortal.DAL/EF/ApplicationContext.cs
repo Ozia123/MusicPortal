@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MusicPortal.DAL.Entities;
-using System;
 
 namespace MusicPortal.DAL.EF {
-    public class ApplicationContext : DbContext {
+    public class ApplicationContext : IdentityDbContext<AppUser> {
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) {
         }
 
@@ -13,7 +14,8 @@ namespace MusicPortal.DAL.EF {
 
         public DbSet<Track> Tracks { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder) {   
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

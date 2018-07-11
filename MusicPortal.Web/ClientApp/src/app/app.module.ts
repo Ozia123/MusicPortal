@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ApplicationRef, Injectable } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
@@ -25,6 +25,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatInputModule } from '@angular/material/input';
 
 import { ArtistService } from './services/artist/artist.service';
 import { AlbumService } from './services/album/album.service';
@@ -47,13 +48,14 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { UploadDialogComponent } from './components/track/upload-dialog/upload-dialog.component';
 import { DropZoneDirective } from './directives/drop-zone.directive';
 import { PlayerComponent } from './components/player/player.component';
-import { FilteredArtistsComponent } from './components/filtered-artists/filtered-artists.component';
 import { Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { FrameComponent } from './components/frame/frame.component';
 
 import { SafePipe } from './pipes/safe-pipe.pipe';
-
+import { SignUpComponent } from './components/auth/sign-up/sign-up.component';
+import { UserService } from './services/user/user.service';
+import { LoginComponent } from './components/auth/login/login.component';
 
 @NgModule({
   declarations: [
@@ -70,9 +72,10 @@ import { SafePipe } from './pipes/safe-pipe.pipe';
     UploadDialogComponent,
     DropZoneDirective,
     PlayerComponent,
-    FilteredArtistsComponent,
     FrameComponent,
-    SafePipe
+    SafePipe,
+    SignUpComponent,
+    LoginComponent
   ],
   entryComponents: [
     UploadDialogComponent
@@ -83,6 +86,7 @@ import { SafePipe } from './pipes/safe-pipe.pipe';
     HttpClientModule,
     HttpModule,
     FormsModule,
+    ReactiveFormsModule,
     MatIconModule,
     MatToolbarModule,
     MatMenuModule,
@@ -91,6 +95,7 @@ import { SafePipe } from './pipes/safe-pipe.pipe';
     MatSliderModule,
     MatButtonModule,
     MatGridListModule,
+    MatInputModule,
     FlexLayoutModule,
     MatCardModule,
     MatProgressSpinnerModule,
@@ -109,6 +114,8 @@ import { SafePipe } from './pipes/safe-pipe.pipe';
       { path: 'artist/:name', component: ArtistProfileComponent },
       { path: 'album/:name', component: AlbumPageComponent },
       { path: 'about', component: FrameComponent },
+      { path: 'sign-up', component: SignUpComponent },
+      { path: 'login', component: LoginComponent },
       { path: '**', redirectTo: '' }
     ])
   ],
@@ -116,7 +123,8 @@ import { SafePipe } from './pipes/safe-pipe.pipe';
     ArtistService,
     AlbumService,
     TrackService,
-    PlayerService
+    PlayerService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

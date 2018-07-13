@@ -51,6 +51,9 @@
     <Reference Include="AspNet.ScriptManager.bootstrap, Version=4.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AspNet.ScriptManager.bootstrap.4.1.1\lib\net45\AspNet.ScriptManager.bootstrap.dll</HintPath>
     </Reference>
+    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AI.DependencyCollector, Version=2.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.6.4\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
     </Reference>
@@ -164,6 +167,10 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.1\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Http, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.6\lib\net45\System.Web.Http.dll</HintPath>
@@ -225,7 +232,13 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Forms\Controls\Albums.ascx" />
+    <Content Include="Forms\Controls\Artists.ascx" />
+    <Content Include="Forms\Controls\Search.ascx" />
+    <Content Include="Forms\Controls\Tracks.ascx" />
     <Content Include="Forms\Pages\About.aspx" />
+    <Content Include="Forms\Pages\AlbumInfo.aspx" />
+    <Content Include="Forms\Pages\ArtistInfo.aspx" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -300,12 +313,60 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Factories\ContextFactory.cs" />
     <Compile Include="Factories\UnitOfWorkFactory.cs" />
+    <Compile Include="Forms\Base\AppPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\Base\AppUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\Controls\Albums.ascx.cs">
+      <DependentUpon>Albums.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\Controls\Albums.ascx.designer.cs">
+      <DependentUpon>Albums.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Controls\Artists.ascx.cs">
+      <DependentUpon>Artists.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\Controls\Artists.ascx.designer.cs">
+      <DependentUpon>Artists.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Controls\Search.ascx.cs">
+      <DependentUpon>Search.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\Controls\Search.ascx.designer.cs">
+      <DependentUpon>Search.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Controls\Tracks.ascx.cs">
+      <DependentUpon>Tracks.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\Controls\Tracks.ascx.designer.cs">
+      <DependentUpon>Tracks.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Pages\About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Forms\Pages\About.aspx.designer.cs">
       <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Pages\AlbumInfo.aspx.cs">
+      <DependentUpon>AlbumInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\Pages\AlbumInfo.aspx.designer.cs">
+      <DependentUpon>AlbumInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Pages\ArtistInfo.aspx.cs">
+      <DependentUpon>ArtistInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\Pages\ArtistInfo.aspx.designer.cs">
+      <DependentUpon>ArtistInfo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -360,6 +421,10 @@
     <ProjectReference Include="..\MusicPortal.DAL\MusicPortal.DAL.csproj">
       <Project>{25e5b6a2-d430-46c2-8592-5581d8a62e73}</Project>
       <Name>MusicPortal.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MusicPortal.ViewModels\MusicPortal.ViewModels.csproj">
+      <Project>{017c8301-3665-415e-b675-63d5b9a694ce}</Project>
+      <Name>MusicPortal.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

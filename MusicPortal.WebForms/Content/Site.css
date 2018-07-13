@@ -7,12 +7,9 @@ body {
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
 }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
-input,
 select,
 textarea {
     max-width: 280px;
@@ -38,11 +35,25 @@ textarea {
     padding-top: 15px;
 }
 
+.any-header {
+    margin-top: 50px;
+    padding: 10px;
+    margin-bottom: 0;
+    padding-left: 30px;
+    border-bottom: 3px solid;
+}
+
 .tracks {
+    padding-top: 20px;
 }
 
 .track-holder {
     display: inline-block;
+    padding-top: 10px;
+}
+
+.track-holder .square-image {
+    width: calc(100% + 40px);
 }
 
 .track-holder .rounded-image {
@@ -52,11 +63,59 @@ textarea {
 
 .track-holder .text-wrapper {
     overflow: hidden;
-    height: 30px;
+    height: 80px;
+    text-align: center;
 }
 
 .track-holder .text-wrapper .text {
     word-wrap: break-word;
     font-size: 1.1em;
-    text-align: center;
+}
+
+.artist-info-header {
+    padding-left: 30px;
+    font-size: 3em;
+}
+
+.artist-info-content {
+    display: table;
+    background-color: #ffff64;
+    border: 7px solid;
+    border-left: none;
+    border-right: none;
+    display: table;
+}
+
+.artist-info-content .header-image {
+    display: table-cell;
+    vertical-align: middle;
+    margin: 20px 40px;
+    border: 7px solid white;
+    box-shadow: 7px 5px;
+}
+
+.artist-info-content .rounded-image {
+    border-radius: 50%;
+}
+
+.artist-info-content .artist-bio {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 20px;
+    background-color: white;
+    font-size: 1.2em;
+    border: 7px solid #ffff64;
+    border-right: none;
+    border-left: none;
+    width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+    .artist-info-content .header-image {
+        display: block;
+    }
+
+    .artist-info-content .artist-bio {
+        display: block;
+    }
 }

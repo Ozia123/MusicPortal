@@ -1,9 +1,13 @@
 ﻿<%@ Page Title="About" Language="C#" MasterPageFile="~/Forms/Masters/Site.Master" AutoEventWireup="true"  
    CodeBehind="About.aspx.cs" Inherits="MusicPortal.WebForms.Forms.Pages.About" %>
 
+<%@ Register Src="../Controls/Search.ascx" TagName="Search" TagPrefix="uc1" %>
+<%@ Register Src="../Controls/Tracks.ascx" TagName="Tracks" TagPrefix="uc1" %>
+<%@ Register Src="../Controls/Artists.ascx" TagName="Artists" TagPrefix="uc1" %>
+
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <h2><%: Title %>.</h2>
-    <h5 style="line-height: 1.2">
+    <h1 class="artist-info-header"><%: Title %></h1>
+    <h5 style="line-height: 1.2;">
         MusicPortal website uses <a href="https://last.fm" target="_blank">last.fm</a> api to collect newest information about music.
         <br/>
         So anytime you visit MusicPortal you see only latest updates from <a href="https://last.fm" target="_blank">last.fm</a>.
@@ -35,32 +39,14 @@
         </li>
     </ul>
     
-    <h3 class="block-header">Listen right now!</h3>
+    <h2 class="block-header any-header">Listen right now!</h2>
     <div class="tracks">
-        <asp:Repeater ID="rptTracks" runat="server">
-            <ItemTemplate>
-                <div class="col-md-2 track-holder">
-                    <img class="rounded-image col-md-12" src="<%# Eval("PictureURL") %>">
-                    <div class="text-wrapper">
-                        <span class="text col-md-12"><%# Eval("Name") %></span>
-                    </div>
-                </div>
-            </ItemTemplate>
-        </asp:Repeater>
+        <uc1:Tracks ID="TracksControl" runat="server" />
     </div>
 
-    <h3 class="block-header">Or check artists, which tracks we have uploaded</h3>
+    <h2 class="block-header any-header">Or check artists, which tracks we have uploaded</h2>
     <div class="tracks">
-        <asp:Repeater ID="rptArtists" runat="server">
-            <ItemTemplate>
-                <div class="col-md-2 track-holder">
-                    <img class="rounded-image col-md-12" src="<%# Eval("PictureURL") %>">
-                    <div class="text-wrapper">
-                        <span class="text col-md-12"><%# Eval("Name") %></span>
-                    </div>
-                </div>
-            </ItemTemplate>
-        </asp:Repeater>
+        <uc1:Artists ID="ArtistsControl" runat="server" />
     </div>
 
 </asp:Content>

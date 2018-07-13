@@ -10,60 +10,51 @@
 namespace MusicPortal.WebForms.Forms.Pages {
     
     
-    public partial class About {
+    public partial class AlbumInfo {
         
         /// <summary>
-        /// artistsCountLiteral control.
+        /// lbtnArtist control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal artistsCountLiteral;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnArtist;
         
         /// <summary>
-        /// albumsCountLiteral control.
+        /// imgAlbum control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal albumsCountLiteral;
+        protected global::System.Web.UI.WebControls.Image imgAlbum;
         
         /// <summary>
-        /// tracksCountLiteral control.
+        /// rptTracks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal tracksCountLiteral;
+        protected global::System.Web.UI.WebControls.Repeater rptTracks;
         
         /// <summary>
-        /// uploadedTracksCountLiteral control.
+        /// lbtnArtistAlbums control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal uploadedTracksCountLiteral;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnArtistAlbums;
         
         /// <summary>
-        /// TracksControl control.
+        /// AlbumsControl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::MusicPortal.WebForms.Forms.Controls.Tracks TracksControl;
-        
-        /// <summary>
-        /// ArtistsControl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::MusicPortal.WebForms.Forms.Controls.Artists ArtistsControl;
+        protected global::MusicPortal.WebForms.Forms.Controls.Albums AlbumsControl;
     }
 }

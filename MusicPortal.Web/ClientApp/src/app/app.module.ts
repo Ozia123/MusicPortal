@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ApplicationRef, Injectable } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { HttpModule } from '@angular/http';
+import { HttpModule, XHRBackend } from '@angular/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -56,6 +56,9 @@ import { SafePipe } from './pipes/safe-pipe.pipe';
 import { SignUpComponent } from './components/auth/sign-up/sign-up.component';
 import { UserService } from './services/user/user.service';
 import { LoginComponent } from './components/auth/login/login.component';
+import { TrackEventListenerService } from './services/dom-event-listeners/track-event-listener.service';
+import { SessionService } from './services/session/session.service';
+import { ApplicationInterceptor } from './helpers/ApplicationInterceptor';
 
 @NgModule({
   declarations: [
@@ -124,7 +127,10 @@ import { LoginComponent } from './components/auth/login/login.component';
     AlbumService,
     TrackService,
     PlayerService,
-    UserService
+    UserService,
+    SessionService,
+    TrackEventListenerService,
+    { provide: HTTP_INTERCEPTORS, useClass: ApplicationInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

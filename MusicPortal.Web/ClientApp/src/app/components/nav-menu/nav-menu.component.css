@@ -12,3 +12,15 @@
    width: 97px;
    padding: 0 10px;
  }
+
+ .left-block {
+  float: left;
+ }
+
+ .right-block {
+  float: right;
+ }
+
+ .block-container {
+   display: inline-block !important;
+ }

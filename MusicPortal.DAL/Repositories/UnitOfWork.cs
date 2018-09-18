@@ -23,6 +23,10 @@ namespace MusicPortal.DAL.Repositories {
             return new Repository<TEntity, TKey>(Context);
         } 
 
+        public void Save() {
+            Context.SaveChanges();
+        }
+
         public async Task SaveAsync() {
             await Context.SaveChangesAsync();
         }

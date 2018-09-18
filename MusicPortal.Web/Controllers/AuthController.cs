@@ -27,5 +27,20 @@ namespace MusicPortal.Web.Controllers {
 
             return new OkObjectResult(jwt);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> ValidateToken([FromBody]JwtTokenViewModel token) {
+            //if (!ModelState.IsValid) {
+            //    return BadRequest();
+            //}
+
+            //var ticket = WebApiConfig.OAuthServerOptions.AccessTokenFormat.Unprotect(Model.Token);
+
+            //if (ticket != null && ticket.Identity != null && ticket.Identity.IsAuthenticated) {
+            //    return Ok(ticket.Identity.Name);
+            //}
+
+            return BadRequest();
+        }
     }
 }

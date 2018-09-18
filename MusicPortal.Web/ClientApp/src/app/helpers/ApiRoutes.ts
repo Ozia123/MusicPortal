@@ -15,4 +15,6 @@ export class ApiRoutes {
 
     public static signUp = 'api/accounts';
     public static login = 'api/auth';
+
+    public static setAuthData = 'web-forms/session/setAuthData';
 }

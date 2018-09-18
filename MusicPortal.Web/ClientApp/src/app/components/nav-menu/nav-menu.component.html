@@ -1,22 +1,33 @@
 <mat-toolbar color="primary">
-    <button mat-button routerLink="/">
-        <mat-icon>music_note</mat-icon>
-        <h4 class="after-icon-text">MusicPortal</h4>
-    </button>
-
-    <div class="chart-block" fxLayout="row" fxShow="false" fxShow.gt-sm>
-        <mat-menu x-position="before" #appMenu="matMenu">
-            <button mat-menu-item routerLink="chart/artists/1">Top artists</button>
-            <button mat-menu-item routerLink="chart/tracks/1">Top tracks</button>
-        </mat-menu>
-        <button mat-icon-button [matMenuTriggerFor]="appMenu">
-            <mat-icon>star</mat-icon>
-            <h4 class="after-icon-text">Chart</h4>
+    <div class='left-block'>
+        <button class='block-container' mat-button routerLink="/">
+            <mat-icon>music_note</mat-icon>
+            <h4 class="after-icon-text">MusicPortal</h4>
+        </button>
+    
+        <div class="chart-block block-container" fxLayout="row" fxShow="false" fxShow.gt-sm>
+            <mat-menu x-position="before" #appMenu="matMenu">
+                <button mat-menu-item routerLink="chart/artists/1">Top artists</button>
+                <button mat-menu-item routerLink="chart/tracks/1">Top tracks</button>
+            </mat-menu>
+            <button mat-icon-button [matMenuTriggerFor]="appMenu">
+                <mat-icon>star</mat-icon>
+                <h4 class="after-icon-text">Chart</h4>
+            </button>
+        </div>
+    
+        <button class="block-container" mat-button routerLink="about">
+            <mat-icon>clear_all</mat-icon>
+            <h4 class="after-icon-text">About</h4>
         </button>
     </div>
-
-    <button mat-button routerLink="about">
-        <mat-icon>clear_all</mat-icon>
-        <h4 class="after-icon-text">About</h4>
-    </button>
+    
+    <div class="right-block" style="float: right; padding: 20px">
+        <button mat-button routerLink="login">
+            <h4 class="after-icon-text">Login</h4>
+        </button>
+        <button mat-button routerLink="sign-up">
+            <h4 class="after-icon-text">Sing Up</h4>
+        </button>
+    </div>
 </mat-toolbar>

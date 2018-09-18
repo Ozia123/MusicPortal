@@ -13,6 +13,8 @@ namespace MusicPortal.DAL.Interfaces {
 
         IRepository<TEntity, TKey> GetRepository<TEntity, TKey>() where TEntity : class;
 
+        void Save();
+
         Task SaveAsync();
     }
 }
